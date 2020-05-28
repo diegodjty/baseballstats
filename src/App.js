@@ -4,6 +4,7 @@ import Season from './pages/Season';
 import Roster from './pages/Roster';
 import Games from './pages/Games';
 import Stats from './pages/Stats';
+import NewPlayer from './pages/NewPlayer'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
         <Route  exact path="/roster" component={Roster}/>
         <Route  exact path="/games" component={Games}/>
         <Route  exact path="/stats" component={Stats}/>
-        
+        <Route  exact path="/new/player" component={NewPlayer}/>
       </Switch>
     </Router>
 

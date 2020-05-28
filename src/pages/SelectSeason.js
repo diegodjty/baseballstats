@@ -1,9 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Button from '../components/ui/Button';
 import {Link } from "react-router-dom";
 import Container from './../components/layout/Container';
 import styled from '@emotion/styled';
-
 
 const Box = styled.div`
     height: 100%;
@@ -32,14 +31,20 @@ const Box = styled.div`
 `;
 
 const SelectSeason = () => {
+
+    const [isAuth,setIsAuth] = useState(false);
+
     return (
             <Container>
                 <Box>
                     <h2>Select Season:</h2>
                     <div className="seasonsBtn">
                         <Button><Link to={"/season"} className="link">2020</Link></Button>
-                    </div> 
-                    <Button bgColor='true' Tcolor="true">New Season</Button>   
+                    </div>
+                    {isAuth && (
+                        <Button bgColor='true' Tcolor="true">New Season</Button>
+                    )}
+                       
                 </Box>  
             </Container>
     );
