@@ -1,15 +1,22 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from '@emotion/styled'
 import Container from '../components/layout/Container';
 import {backIcon} from '../img'
 import {Link} from 'react-router-dom'
 import RosterPlayers from './../components/RosterPlayers';
+import {add} from '../img'
 
 const BackIconImg = styled.img`
     width: 40px;
     margin-top: 10px;
     margin-left: 10px;
 `
+const AddIcon = styled.img`
+    width: 40px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+`;
 const Box = styled.div`
     height: 100%;
     display: flex;
@@ -29,9 +36,16 @@ const Box = styled.div`
 `;
 
 const Roster = () => {
+
+
+    const [isAuth,setIsAuth] = useState(true);
+
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
+        {isAuth &&(
+            <Link to={"/new/player"}><AddIcon src={add} alt=""/></Link>
+        )}
         <Container>
             <Box>
                 <h2>Roster</h2>

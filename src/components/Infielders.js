@@ -1,28 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import {avatar} from '../img'
+import PlayerContainer from './layout/PlayerContainer';
 
-const PlayerContainer = styled.div`
-    .bar{
-        background-color: #c4c4c4;
-        color: black;
-        padding: 5px 5px;
-    }
 
-    .player-info{
-        display: flex;
-        align-items: center
-    }
-    .icon{
-        margin-left: .5rem;
-    }
-    .info{
-        line-height:.5;
-        margin-left: 3rem;
-    }
-`;
-
-const Infielders = () => {
+const Infielders = ({player}) => {
     return (
         <PlayerContainer>
            <div className="bar">Infielders</div>
@@ -31,19 +12,9 @@ const Infielders = () => {
                    <img src={avatar} alt=""/>
                </div>
                <div className="info">
-                   <p>Diego Taveras</p>
-                   <p>#2</p>
-                   <p>B/T: RR</p>
-               </div>
-           </div>
-           <div className="player-info">
-               <div className="icon">
-                   <img src={avatar} alt=""/>
-               </div>
-               <div className="info">
-                   <p>Diego Taveras</p>
-                   <p>#2</p>
-                   <p>B/T: RR</p>
+                    <p>{player.name}{' '}{player.lastname}</p>
+                    <p>#{player.number}</p>
+                    <p>B/T: {player.bats}{player.catchs}</p>
                </div>
            </div>
         </PlayerContainer>
