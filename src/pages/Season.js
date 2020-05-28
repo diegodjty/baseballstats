@@ -1,43 +1,56 @@
 import React from 'react';
-import {css} from '@emotion/core'
 import styled from '@emotion/styled'
-import Container from '../components/layout/Container';
 import Button from '../components/ui/Button';
+import {backIcon} from '../img'
+import {Link} from 'react-router-dom'
+import Container from './../components/layout/Container';
 
-const SelectSeason = styled.div`
+const BackIconImg = styled.img`
+    width: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+`
+
+const Box = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
     h2{
         font-size: 2.2rem;
         text-align: center;
-        margin: 0;
+        margin-bottom: 10rem;
     }
 
     .seasonsBtn{
         display: flex;
-        flex-grow: 2;
         flex-direction: column;
-        justify-content: center;
-    }
-    .actionBtn{
+        margin-top: 20rem;
     }
 
+    .Link{
+        text-decoration: none;
+        color: rgba(255,0,0)
+    }
+    a{
+        margin-bottom: 20px;
+    }
 `;
 
 const Season = () => {
     return (
-        <Container>
-            <SelectSeason>
-                <h2>Select Season:</h2>
-                <div className="seasonsBtn">
-                    <Button css={css`margin-bottom: 1rem;`}>2020</Button>
-                </div> 
-                <Button className="actionBtn" bgColor='true' Tcolor="rgb(255,0,0)">New Season</Button>   
-            </SelectSeason>  
-        </Container>
+        <>
+            <Link to={"/"}><BackIconImg src={backIcon} alt=""/></Link>
+            <Container>
+                <Box>
+                    <h2>Season 2020:</h2>
+                    <div className="seasonBtn">
+                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/games'}>Games</Link></Button>
+                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/roster'}>Roster</Link></Button>
+                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/stats'}>Stats</Link></Button>
+                    </div> 
+                </Box>  
+            </Container>
+        </>
     );
 };
 

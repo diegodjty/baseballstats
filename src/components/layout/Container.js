@@ -6,6 +6,7 @@ const Container = styled.div`
     width: 70vw;
     display: flex;
     flex-direction: column;
+    margin: auto;
 `;
 
 export default Container

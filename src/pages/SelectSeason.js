@@ -1,11 +1,11 @@
 import React from 'react';
-import {css} from '@emotion/core'
-import styled from '@emotion/styled'
-import Container from '../components/layout/Container';
 import Button from '../components/ui/Button';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
+import Container from './../components/layout/Container';
+import styled from '@emotion/styled';
 
-const SelectSeason = styled.div`
+
+const Box = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -15,6 +15,7 @@ const SelectSeason = styled.div`
         font-size: 2.2rem;
         text-align: center;
         margin: 0;
+        margin-top: 10rem;
     }
 
     .seasonsBtn{
@@ -23,23 +24,25 @@ const SelectSeason = styled.div`
         flex-direction: column;
         justify-content: center;
     }
-    .actionBtn{
-    }
 
+    .link{
+        text-decoration: none;
+        color: white;
+    }
 `;
 
-const Season = () => {
+const SelectSeason = () => {
     return (
-        <Container>
-            <SelectSeason>
-                <h2>Select Season:</h2>
-                <div className="seasonsBtn">
-                    <Button css={css`margin-bottom: 1rem;`}>2020</Button>
-                </div> 
-                <Button className="actionBtn" bgColor='true' Tcolor="rgb(255,0,0)">New Season</Button>   
-            </SelectSeason>  
-        </Container>
+            <Container>
+                <Box>
+                    <h2>Select Season:</h2>
+                    <div className="seasonsBtn">
+                        <Button><Link to={"/season"} className="link">2020</Link></Button>
+                    </div> 
+                    <Button bgColor='true' Tcolor="true">New Season</Button>   
+                </Box>  
+            </Container>
     );
 };
 
-export default Season;
+export default SelectSeason;
