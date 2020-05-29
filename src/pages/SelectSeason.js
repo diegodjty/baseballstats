@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import Button from '../components/ui/Button';
 import {Link } from "react-router-dom";
 import Container from './../components/layout/Container';
@@ -41,14 +41,35 @@ const Box = styled.div`
 
 const SelectSeason = () => {
 
-    const {user,firebase} =useContext(FirebaseContext)
+    const {user,firebase} = useContext(FirebaseContext)
+    const[seasons,setSeason] = useState([])
 
+
+    useEffect(() => {
+        const getSeasons = () => {
+            firebase.db.collection('seasons').onSnapshot(handelSnapshot)
+        }
+        getSeasons()
+    }, [])
+
+    function handelSnapshot(snapshot){
+        const newSeasons = snapshot.docs.map(doc =>{
+            return{
+                id: doc.id,
+                ...doc.data()
+            }
+        })
+        setSeason(newSeasons)
+    }
     return (
             <Container>
                 <Box>
                     <h2>Select Season:</h2>
                     <div className="seasonsBtn">
-                        <Button><Link to={"/season"} className="link">2020</Link></Button>
+                        {seasons.map(season=>(
+                            <Button><Link to={"/season"} className="link">{season.year}</Link></Button>
+                        ))}
+                        
                     </div>
                     {user && (
                         <>

@@ -55,7 +55,6 @@ const Login = () => {
         try {
             await firebases.login(email,password)
             history.push('/')
-            console.log('nice')
         } catch (error) {
             console.log(error)
         }
