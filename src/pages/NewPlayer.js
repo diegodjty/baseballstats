@@ -1,7 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import Container from './../components/layout/Container';
 import styled from '@emotion/styled';
 import Button from './../components/ui/Button';
+import {FirebaseContext} from '../firebase'
+import {useHistory} from 'react-router-dom'
 
 const Containers = styled(Container)`
     h2{
@@ -53,6 +55,8 @@ const NewPlayer = () => {
         bats: '',
         catchs: ''
     });
+    const {firebase} = useContext(FirebaseContext)
+    const history = useHistory()
     const handelChange = (e) =>{
         setPlayer({
             ...player,
@@ -60,8 +64,9 @@ const NewPlayer = () => {
         })
     }
     const Submit = (e) => {
-        e.preventDefualt();
-        
+        e.preventDefault();
+        firebase.db.collection('seasons').doc('season').collection('roster').add(player)
+        history.push('/roster')
     }
 
     return (
@@ -90,7 +95,7 @@ const NewPlayer = () => {
                         <option value="L">L</option>
                     </select>
                 </BatCatch>
-                <Button type="submit" bgColor="true">Create</Button>
+                <Button type="submit" onClick={Submit} bgColor="true">Create</Button>
             </Form>
         </Containers>
     );

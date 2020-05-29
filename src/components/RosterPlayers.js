@@ -1,50 +1,29 @@
-import React from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import Pitchers from './Pitchers';
 import Catchers from './Catchers';
 import Infielders from './Infielders';
 import Outfielders from './Outfielders';
-
-const players = [
-    {
-        id: 1,
-        name: 'Diego',
-        lastname: 'Taveras',
-        number: 2,
-        bats: 'r',
-        catchs: 'r',
-        position: 'infielder'
-    },
-    {
-        id: 2,
-        name: 'Ronald',
-        lastname: 'Espinal',
-        number: 24,
-        bats: 'r',
-        catchs: 'r',
-        position: 'outfielder'
-    },
-    {
-        id: 3,
-        name: 'Juan',
-        lastname: 'Antonio',
-        number: 51,
-        bats: 'r',
-        catchs: 'r',
-        position: 'pitcher'
-    },
-    {
-        id: 3,
-        name: 'Pedro',
-        lastname: 'Rodriguez',
-        number: 31,
-        bats: 'r',
-        catchs: 'r',
-        position: 'catcher'
-    },
-
-]
-
+import {FirebaseContext} from './../firebase';
 const RosterPlayers = () => {
+    const [players,setPlayer] = useState([])
+    const {firebase} = useContext(FirebaseContext);
+
+    useEffect(() => {
+        const getPlayers = () => {
+            firebase.db.collection('seasons').doc('season').collection('roster').onSnapshot(handelSnapshot)
+        }
+        getPlayers()
+    }, [])
+
+    function handelSnapshot(snapshot){
+        const newPlayer = snapshot.docs.map(doc =>{
+            return{
+                id: doc.id,
+                ...doc.data()
+            }
+        })
+        setPlayer(newPlayer)
+    }
     return (
         <>
             {players.map( player=>(
