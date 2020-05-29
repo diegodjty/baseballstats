@@ -1,16 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import styled from '@emotion/styled'
 import Container from '../components/layout/Container';
 import {backIcon} from '../img'
 import {Link} from 'react-router-dom'
 import RosterPlayers from './../components/RosterPlayers';
 import {add} from '../img'
+import FirebaseContext from './../firebase/context';
+import BackIconImg from './../components/ui/BackIconImg';
 
-const BackIconImg = styled.img`
-    width: 40px;
-    margin-top: 10px;
-    margin-left: 10px;
-`
+
 const AddIcon = styled.img`
     width: 40px;
     float: right;
@@ -38,12 +36,12 @@ const Box = styled.div`
 const Roster = () => {
 
 
-    const [isAuth,setIsAuth] = useState(true);
+    const {user} =useContext(FirebaseContext)
 
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
-        {isAuth &&(
+        {user &&(
             <Link to={"/new/player"}><AddIcon src={add} alt=""/></Link>
         )}
         <Container>

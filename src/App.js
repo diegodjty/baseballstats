@@ -5,20 +5,28 @@ import Roster from './pages/Roster';
 import Games from './pages/Games';
 import Stats from './pages/Stats';
 import NewPlayer from './pages/NewPlayer'
+import Login from './pages/Login'
+import firebase,{FirebaseContext} from './firebase'
+import useAuthentication from './hooks/useAuth';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+
 function App() {
+  const user = useAuthentication();
   return (
-    <Router>
-      <Switch>
-        <Route  exact path="/" component={SelectSeason}/>
-        <Route  exact path="/season" component={Season}/>
-        <Route  exact path="/roster" component={Roster}/>
-        <Route  exact path="/games" component={Games}/>
-        <Route  exact path="/stats" component={Stats}/>
-        <Route  exact path="/new/player" component={NewPlayer}/>
-      </Switch>
-    </Router>
+      <FirebaseContext.Provider value={{firebase,user}}>
+        <Router>
+          <Switch>
+            <Route  exact path="/" component={SelectSeason}/>
+            <Route  exact path="/season" component={Season}/>
+            <Route  exact path="/roster" component={Roster}/>
+            <Route  exact path="/games" component={Games}/>
+            <Route  exact path="/stats" component={Stats}/>
+            <Route  exact path="/new/player" component={NewPlayer}/>
+            <Route  exact path="/login" component={Login}/>
+          </Switch>
+        </Router>
+      </FirebaseContext.Provider>
 
   );
 }

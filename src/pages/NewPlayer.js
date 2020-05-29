@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Container from './../components/layout/Container';
 import styled from '@emotion/styled';
 import Button from './../components/ui/Button';
@@ -32,28 +32,46 @@ const Form = styled.form`
             color: black;
         }
     }
-    
-    }
 `;
 
 const BatCatch = styled.div`
     display: flex;
     justify-content: space-between;
-
+    margin-bottom: 2rem;
     select{
         width: 45%;
     }
 `;
 
 const NewPlayer = () => {
+
+    const [player,setPlayer] = useState({
+        name: '',
+        lastname: '',
+        number: null,
+        position: '',
+        bats: '',
+        catchs: ''
+    });
+    const handelChange = (e) =>{
+        setPlayer({
+            ...player,
+            [e.target.name]:e.target.value
+        })
+    }
+    const Submit = (e) => {
+        e.preventDefualt();
+        
+    }
+
     return (
         <Containers>
             <h2>New Player</h2>
             <Form>
-                <input type="text" placeholder="Name"/>
-                <input type="text" placeholder="Last Name"/>
-                <input type="text" placeholder="Number"/>
-                <select>
+                <input type="text" onChange={handelChange} name="name" placeholder="Name"/>
+                <input type="text"onChange={handelChange} name="lastname" placeholder="Last Name"/>
+                <input type="number"onChange={handelChange} name="number" placeholder="Number"/>
+                <select name="position" onChange={handelChange}>
                     <option>-Position-</option>
                     <option value="pitcher">Pitcher</option>
                     <option value="catcher">Catcher</option>
@@ -61,12 +79,12 @@ const NewPlayer = () => {
                     <option value="outfielder">Outfielder</option>
                 </select>
                 <BatCatch>
-                    <select>
+                    <select name="bats" onChange={handelChange}>
                         <option value="">Bats</option>
                         <option value="R">R</option>
                         <option value="L">L</option>
                     </select>
-                    <select>
+                    <select name="catchs" onChange={handelChange}>
                         <option value="">Catchs</option>
                         <option value="R">R</option>
                         <option value="L">L</option>
