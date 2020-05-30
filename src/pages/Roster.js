@@ -31,12 +31,17 @@ const Box = styled.div`
     a{
         margin-bottom: 20px;
     }
+    .bar{
+        background-color: #c4c4c4;
+        color: black;
+        padding: 5px 5px;
+    }
 `;
 
 const Roster = () => {
 
 
-    const {user} =useContext(FirebaseContext)
+    const {user} = useContext(FirebaseContext)
 
     return (
     <>

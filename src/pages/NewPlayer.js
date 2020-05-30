@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react';
+import React,{useState,useContext} from 'react';
 import Container from './../components/layout/Container';
 import styled from '@emotion/styled';
 import Button from './../components/ui/Button';

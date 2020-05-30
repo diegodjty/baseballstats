@@ -1,21 +1,46 @@
-import React from 'react';
-import {avatar} from '../img'
+import React,{useContext} from 'react';
+import {avatar, deleteIcon} from '../img'
 import PlayerContainer from './layout/PlayerContainer';
+import {FirebaseContext} from './../firebase';
+import swal from 'sweetalert';
 
 
 const Infielders = ({player}) => {
+    const deletes = () =>{
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this player",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                firebase.db.collection('seasons').doc('season').collection('roster').doc(player.id).delete()
+              swal("Player deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("Your imaginary file is safe!");
+            }
+          });
+    }
+    const {user,firebase} = useContext(FirebaseContext)
+
     return (
         <PlayerContainer>
-           <div className="bar">Infielders</div>
-           <div className="player-info">
+           <div className="player-info" >
                <div className="icon">
-                   <img src={avatar} alt=""/>
+                   <img src={avatar} alt="" />
                </div>
                <div className="info">
                     <p>{player.name}{' '}{player.lastname}</p>
                     <p>#{player.number}</p>
                     <p>B/T: {player.bats}{player.catchs}</p>
                </div>
+               {user &&(
+                   <img className="delete" src={deleteIcon}  onClick={deletes} alt=""/>
+               )}
            </div>
         </PlayerContainer>
     );

@@ -9,7 +9,10 @@ const PlayerContainer = styled.div`
 
     .player-info{
         display: flex;
-        align-items: center
+        align-items: center;
+        &:hover .delete{
+            display: block;
+        }
     }
     .icon{
         margin-left: .5rem;
@@ -20,6 +23,11 @@ const PlayerContainer = styled.div`
         &:last-of-type{
             text-transform: uppercase;
         }
+        
+    }
+    .delete{
+        width: 20px;
+        display: none;
     }
 `;
 

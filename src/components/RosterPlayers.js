@@ -26,27 +26,31 @@ const RosterPlayers = () => {
     }
     return (
         <>
+            <div className="bar">Pitchers</div>
             {players.map( player=>(
                 player.position === 'pitcher' ?
-                    <Pitchers player={player} />  
+                    <Pitchers player={player} key={player.id} />  
                 : 
                 null
             ))}
+            <div className="bar">Catchers</div>
             {players.map( player=>(
                 player.position === 'catcher' ?
-                    <Catchers player={player} />  
+                    <Catchers player={player} key={player.id} />  
                 : 
                 null
             ))}
+            <div className="bar">Infielders</div>
             {players.map( player=>(
                 player.position === 'infielder' ?
-                    <Infielders player={player} />  
+                    <Infielders player={player} key={player.id} />  
                 : 
                 null
             ))}
+            <div className="bar">Outfielders</div>
             {players.map( player=>(
                 player.position === 'outfielder' ?
-                    <Outfielders player={player} />  
+                    <Outfielders player={player} key={player.id} />  
                 : 
                 null
             ))}

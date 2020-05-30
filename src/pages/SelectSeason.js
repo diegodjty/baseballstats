@@ -50,8 +50,9 @@ const SelectSeason = () => {
             firebase.db.collection('seasons').onSnapshot(handelSnapshot)
         }
         getSeasons()
+        // eslint-disable-next-line
     }, [])
-
+    
     function handelSnapshot(snapshot){
         const newSeasons = snapshot.docs.map(doc =>{
             return{
