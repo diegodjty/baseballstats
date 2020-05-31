@@ -68,7 +68,7 @@ const SelectSeason = () => {
                     <h2>Select Season:</h2>
                     <div className="seasonsBtn">
                         {seasons.map(season=>(
-                            <Button><Link to={"/season"} className="link">{season.year}</Link></Button>
+                            <Button key={season.id}><Link to={"/season"} className="link">{season.year}</Link></Button>
                         ))}
                         
                     </div>

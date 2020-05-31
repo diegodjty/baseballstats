@@ -72,14 +72,14 @@ const Games = () => {
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
         {user &&(
-            <AddIcon src={add} alt=""/>
+            <Link to={"/new/game"}><AddIcon src={add} alt=""/></Link>
         )}
         <Container>
             <Box>
                 <h2>Games</h2>
                 <div className="game-card">
                     <div className="head">
-                        <span>Final</span> <span>W</span>
+                        <span>Final</span> <span>5/20</span><span>W</span>
                     </div>
                     <table>
                         <tr>

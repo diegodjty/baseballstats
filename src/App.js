@@ -5,6 +5,7 @@ import Roster from './pages/Roster';
 import Games from './pages/Games';
 import Stats from './pages/Stats';
 import NewPlayer from './pages/NewPlayer'
+import NewGame from './pages/NewGame'
 import Login from './pages/Login'
 import firebase,{FirebaseContext} from './firebase'
 import useAuthentication from './hooks/useAuth';
@@ -23,6 +24,7 @@ function App() {
             <Route  exact path="/games" component={Games}/>
             <Route  exact path="/stats" component={Stats}/>
             <Route  exact path="/new/player" component={NewPlayer}/>
+            <Route  exact path="/new/game" component={NewGame}/>
             <Route  exact path="/login" component={Login}/>
           </Switch>
         </Router>
