@@ -94,8 +94,8 @@ const NewGame = () => {
 
         //Combine child component state with this component state into an object 
         const data = {
-            info,
-            params
+            vsteaminfo: info,
+            playerinfo: params
         }
         
         firebase.db.collection('seasons').doc('season').collection('games').add(data)

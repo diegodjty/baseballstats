@@ -77,18 +77,18 @@ const Form = styled.div`
 const PlayerGameInfo = ({stateRef}) => {
 
     const [info,setInfo] = useState({
-        battingnumber: '',
+        battingnumber: 0,
         name:'',
         position: '',
-        ab: '',
-        r: '',
-        h:'',
-        b2: '',
-        b3: '',
-        hr: '',
-        rbi: '',
-        bb: '',
-        so: ''
+        ab: 0,
+        r: 0,
+        h:0,
+        b2: 0,
+        b3: 0,
+        hr: 0,
+        rbi: 0,
+        bb: 0,
+        so: 0
     });
 
     
@@ -98,9 +98,9 @@ const PlayerGameInfo = ({stateRef}) => {
     useEffect(()=>{
         const getData = ()=>{
             stateRef.current = playersInfo
-            console.log(stateRef.current)
         }
         getData()
+        // eslint-disable-next-line
     },[playersInfo])
     
     //useHistory to redirect
