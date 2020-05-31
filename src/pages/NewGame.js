@@ -1,10 +1,10 @@
-import React,{useState,useContext} from 'react';
-import Container from './../components/layout/Container';
-import styled from '@emotion/styled';
-import Button from './../components/ui/Button';
+import React,{useState,useContext,useRef} from 'react';
+import styled from '@emotion/styled'
+import Container from '../components/layout/Container';
+import Button from '../components/ui/Button';
 import {FirebaseContext} from '../firebase'
 import {useHistory} from 'react-router-dom'
-import Lineup from '../components/Lineup';
+import PlayerGameInfo from './PlayerGameInfo';
 
 const Containers = styled(Container)`
     h2{
@@ -19,11 +19,7 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .date{
-        width: 100%;
-    }
     input,select{
-        /* -webkit-appearance: none; */
         padding: 1rem;
         border: 2px solid white;
         background: transparent;
@@ -37,6 +33,9 @@ const Form = styled.form`
             color: black;
         }
     }
+    .date{
+        width: 100%;
+    }
     .vs-team{
         border: solid white 1px;
         
@@ -49,11 +48,21 @@ const Form = styled.form`
         }
         .vs-team-final{
             display: flex;
-        }}
-`;
-
+        }
+    }
+    .button{
+        margin-top: 1rem;
+    }
+    label{
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+`
 
 const NewGame = () => {
+    //child component state ref
+    const playerGameInfoStateRef = useRef(null)
 
     const [info,setInfo] = useState({
         date: '',
@@ -61,52 +70,59 @@ const NewGame = () => {
         runs: '',
         hits: '',
         errors: '',
-        battingnumber: '',
-        name:'',
-        position: '',
-        ab: '',
-        r: '',
-        h:'',
-        b2: '',
-        b3: '',
-        hr: '',
-        rbi: '',
-        bb: '',
-        so: ''
     });
-    const {firebase} = useContext(FirebaseContext)
-    const history = useHistory()
-    const handelChange = (e) =>{
+  
+    //Function to update state
+    const handleChange = (e) =>{
         setInfo({
             ...info,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
+
+    
+    //useHistory to redirect
+    const history = useHistory()
+
+    //Connect to Firebase Context
+    const {firebase} = useContext(FirebaseContext)
     const Submit = (e) => {
         e.preventDefault();
-        firebase.db.collection('seasons').doc('season').collection('games').add(info)
+
+        // assign ref state to get current data when user click done
+        const params = playerGameInfoStateRef.current
+
+        //Combine child component state with this component state into an object 
+        const data = {
+            info,
+            params
+        }
+        
+        firebase.db.collection('seasons').doc('season').collection('games').add(data)
+
+        // Redirect to games page
         history.push('/games')
     }
 
     return (
-        <Containers>
-            <h2>New Game</h2>
-            <Form>
-                <input type="date" onChange={handelChange} name="date" className="date" placeholder="Date"/>
+    <Containers>
+        <Form>
+            <label htmlFor="">Vs Team</label>
+            <input type="date"  name="date" onChange={handleChange} className="date" placeholder="Date"/>
                 <div className="vs-team">
                     <div className="vs-team-name">
-                        <input type="text" onChange={handelChange} placeholder="Vs Team" name="vsteam"/>
+                        <input type="text"  placeholder="Vs Team" name="vsteam"onChange={handleChange}/>
                     </div>
                     <div className="vs-team-final">
-                        <input type="number" onChange={handelChange} name="runs" placeholder="R"/>
-                        <input type="number" onChange={handelChange} name="hits" placeholder="H"/>
-                        <input type="number" onChange={handelChange} name="errors" placeholder="E"/>
+                        <input type="number"  name="runs" placeholder="R" onChange={handleChange}/>
+                        <input type="number"  name="hits" placeholder="H" onChange={handleChange}/>
+                        <input type="number"  name="errors" placeholder="E" onChange={handleChange}/>
                     </div>
                 </div>
-                <Lineup  />
-                <Button type="submit" onClick={Submit} bgColor="true">Create</Button>
-            </Form>
-        </Containers>
+                <PlayerGameInfo stateRef={playerGameInfoStateRef}/>
+            <Button type="submit" onClick={Submit} bgColor="true" className="button">Done</Button>
+        </Form>
+    </Containers>
     );
 };
 

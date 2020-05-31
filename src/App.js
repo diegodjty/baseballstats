@@ -7,6 +7,7 @@ import Stats from './pages/Stats';
 import NewPlayer from './pages/NewPlayer'
 import NewGame from './pages/NewGame'
 import Login from './pages/Login'
+import PlayerGameInfo from './pages/PlayerGameInfo';
 import firebase,{FirebaseContext} from './firebase'
 import useAuthentication from './hooks/useAuth';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -25,6 +26,7 @@ function App() {
             <Route  exact path="/stats" component={Stats}/>
             <Route  exact path="/new/player" component={NewPlayer}/>
             <Route  exact path="/new/game" component={NewGame}/>
+            <Route  exact path="/new/player/info" component={PlayerGameInfo}/>
             <Route  exact path="/login" component={Login}/>
           </Switch>
         </Router>

@@ -13,6 +13,7 @@ const RosterPlayers = () => {
             firebase.db.collection('seasons').doc('season').collection('roster').onSnapshot(handelSnapshot)
         }
         getPlayers()
+        // eslint-disable-next-line
     }, [])
 
     function handelSnapshot(snapshot){
