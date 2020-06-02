@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Container from './layout/Container';
 import styled from '@emotion/styled'
 
@@ -54,7 +54,6 @@ const Box = styled.div`
     }
 `;
 const Games = ({game}) => {
-     
     
     return (
         
@@ -73,19 +72,16 @@ const Games = ({game}) => {
                                 <td></td>
                                 <td>R</td>
                                 <td>H</td>
-                                <td>E</td>
                             </tr>
                             <tr>
                                 <td>Los Patrones</td>
-                                <td>8 </td>
-                                <td>9</td>
-                                <td>0 </td>
+                                <td>{i.totalR}</td>
+                                <td>{i.totalH}</td>
                             </tr>
                             <tr>
                                 <td>Juncalito</td>
                                 <td>{i.vsteaminfo.runs}</td>
                                 <td>{i.vsteaminfo.hits}</td>
-                                <td>{i.vsteaminfo.errors}</td>
                             </tr>
                         </table>
                         <div className="footer">

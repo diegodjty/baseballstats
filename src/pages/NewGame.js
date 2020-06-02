@@ -63,6 +63,9 @@ const Form = styled.form`
 const NewGame = () => {
     //child component state ref
     const playerGameInfoStateRef = useRef(null)
+    const totalRunsStateRef = useRef(null)
+    const totalErrorsStateRef = useRef(null)
+    const totalHitsStateRef = useRef(null)
 
     const [info,setInfo] = useState({
         date: '',
@@ -91,11 +94,14 @@ const NewGame = () => {
 
         // assign ref state to get current data when user click done
         const params = playerGameInfoStateRef.current
-
+        const totalR = totalRunsStateRef.current
+        const totalH = totalHitsStateRef.current
         //Combine child component state with this component state into an object 
         const data = {
             vsteaminfo: info,
-            playerinfo: params
+            playerinfo: params,
+            totalR,
+            totalH
         }
         
         firebase.db.collection('seasons').doc('season').collection('games').add(data)
@@ -119,7 +125,11 @@ const NewGame = () => {
                         <input type="number"  name="errors" placeholder="E" onChange={handleChange}/>
                     </div>
                 </div>
-                <PlayerGameInfo stateRef={playerGameInfoStateRef}/>
+                <PlayerGameInfo
+                    stateRef={playerGameInfoStateRef} 
+                    totalRunsStateRef={totalRunsStateRef}
+                    totalHitsStateRef={totalHitsStateRef}
+                />
             <Button type="submit" onClick={Submit} bgColor="true" className="button">Done</Button>
         </Form>
     </Containers>

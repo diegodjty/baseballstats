@@ -74,8 +74,7 @@ const Form = styled.div`
 `;
 
 
-const PlayerGameInfo = ({stateRef}) => {
-
+const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     const [info,setInfo] = useState({
         battingnumber: 0,
         name:'',
@@ -88,20 +87,53 @@ const PlayerGameInfo = ({stateRef}) => {
         hr: 0,
         rbi: 0,
         bb: 0,
-        so: 0
+        so: 0,
     });
-
-    
-
     const [playersInfo,setPlayersInfo] = useState([])
+    const [totalRuns,setTotalRuns] = useState(0)
+    const [totalHits,setTotalHits] = useState(0)
     
     useEffect(()=>{
-        const getData = ()=>{
-            stateRef.current = playersInfo
+        const setRef = ()=>{
+            stateRef.current = playersInfo;
         }
-        getData()
+        setRef()
         // eslint-disable-next-line
     },[playersInfo])
+
+
+
+    useEffect(()=>{
+        const setRef = ()=>{
+            totalRunsStateRef.current = totalRuns;
+        }
+        setRef()
+        // eslint-disable-next-line
+    },[totalRuns])
+
+    useEffect(()=>{
+        const setData =() =>{
+            setTotalRuns(totalRuns+parseInt(info.r))
+        }
+        setData()
+    },[info.r])
+
+    useEffect(()=>{
+        const setRef = ()=>{
+            totalHitsStateRef.current = totalHits;
+        }
+        setRef()
+        // eslint-disable-next-line
+    },[totalHits])
+
+    useEffect(()=>{
+        const setData =() =>{
+            setTotalHits(totalHits+parseInt(info.h))
+        }
+        setData()
+    },[info.h])
+
+    
     
     //useHistory to redirect
     // const history = useHistory()
@@ -137,7 +169,7 @@ const PlayerGameInfo = ({stateRef}) => {
         setPlayer(newPlayer)
     }
 
-   
+    
     const add = (e) => {
         e.preventDefault();
         setPlayersInfo([

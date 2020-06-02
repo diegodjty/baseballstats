@@ -18,6 +18,7 @@ const GamesList = () => {
 
     const {user,firebase} = useContext(FirebaseContext)
     const [game,setGame] = useState([])
+    
     useEffect(() => {
         const getPlayers = () => {
             firebase.db.collection('seasons').doc('season').collection('games').onSnapshot(handelSnapshot)
@@ -34,14 +35,19 @@ const GamesList = () => {
             }
         })
         setGame(newGame)
+        
     }
     return (
     <>
+        
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
         {user &&(
             <Link to={"/new/game"}><AddIcon src={add} alt=""/></Link>
         )}
-        <Games game={game}/>
+        {game[0]? 
+            <Games key={game[0].id} game={game}/>
+        : null}
+        
     </>
     );
 };
