@@ -28,6 +28,7 @@ const Box = styled.div`
         font-size: 1.2rem;
         border-radius: 10px;
         box-shadow: 0px 0px 5px 6px rgba(0,0,0,0.34);
+        margin-bottom: 2rem;
     }
     .head{
         display: flex;
