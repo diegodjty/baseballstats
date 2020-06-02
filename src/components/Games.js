@@ -52,8 +52,21 @@ const Box = styled.div`
     table{
         padding: .5rem 0;
     }
+    .won{
+        color: green;
+    }
+    .lost{
+        color: red;
+    }
 `;
 const Games = ({game}) => {
+
+    const whoWon = (teamR,VsTeamR)=>{
+        if(teamR < VsTeamR){
+            return <span className="lost"> L </span>
+        }
+        return <span className="won"> W </span>
+    }
     
     return (
         
@@ -65,7 +78,7 @@ const Games = ({game}) => {
                         
                     <div className="game-card">
                         <div className="head">
-                            <span>Final</span> <span>{i.vsteaminfo.date}</span><span>W</span>
+                            <span>Final</span> <span>{i.vsteaminfo.date}</span> {whoWon(i.totalR,i.vsteaminfo.runs)}
                         </div>
                         <table>
                             <tr>
