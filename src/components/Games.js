@@ -93,7 +93,7 @@ const Games = ({game}) => {
                                 <td>{i.totalH}</td>
                             </tr>
                             <tr>
-                                <td>Juncalito</td>
+                                <td>{i.vsteaminfo.vsteam}</td>
                                 <td>{i.vsteaminfo.runs}</td>
                                 <td>{i.vsteaminfo.hits}</td>
                             </tr>

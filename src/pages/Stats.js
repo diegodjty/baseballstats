@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useEffect,useContext,useState} from 'react';
 import styled from '@emotion/styled'
 import Container from '../components/layout/Container';
 import {backIcon} from '../img'
 import {Link} from 'react-router-dom'
+import {FirebaseContext} from '../firebase'
 
 const BackIconImg = styled.img`
     width: 40px;
@@ -32,41 +33,33 @@ const Box = styled.div`
 `;
 
 const Stats = () => {
+
+    const {user,firebase} = useContext(FirebaseContext)
+    const [stats,setStats] = useState([])
+    useEffect(() => {
+        const getStats = () => {
+            firebase.db.collection('seasons').doc('season').collection('stats').onSnapshot(handelSnapshot)
+        }
+        getStats()
+        // eslint-disable-next-line
+    }, [])
+    
+    function handelSnapshot(snapshot){
+        const NewStats = snapshot.docs.map(doc =>{
+            return{
+                id: doc.id,
+                ...doc.data()
+            }
+        })
+        setStats(NewStats)
+    }
+
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
         <Container>
             <Box>
                 <h2>Stats:</h2>
-                <select>
-                    <option value="G">G</option>
-                    <option value="AB">AB</option>
-                    <option value="R">R</option>
-                    <option value="H">H</option>
-                    <option value="2B">2B</option>
-                    <option value="3B">3B</option>
-                    <option value="HR">HR</option>
-                    <option value="RBI">RBI</option>
-                    <option value="BB">BB</option>
-                    <option value="SO">SO</option>
-                </select>
-                <table>
-                    <tr>
-                        <td>1</td>
-                        <td>Diego Taveras</td>
-                        <td>36</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Diego Taveras</td>
-                        <td>36</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Diego Taveras</td>
-                        <td>36</td>
-                    </tr>
-                </table>
             </Box>
         </Container>
         
@@ -75,3 +68,19 @@ const Stats = () => {
 };
 
 export default Stats;
+
+
+// const handleChange = (e) =>{
+//     if(e.target.name ==="name" || e.target.name ==="position"){
+//         setInfo({
+//             ...info,
+//             [e.target.name]: e.target.value
+//         })
+//     }else{
+//         setInfo({
+//             ...info,
+//             [e.target.name]: parseInt(e.target.value)
+//         })
+//     }
+
+// }

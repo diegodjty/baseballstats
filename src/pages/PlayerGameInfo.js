@@ -113,7 +113,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     useEffect(()=>{
         const setData =() =>{
-            setTotalRuns(totalRuns+parseInt(info.r))
+            setTotalRuns(totalRuns+info.r)
         }
         setData()
     },[info.r])
@@ -128,7 +128,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     useEffect(()=>{
         const setData =() =>{
-            setTotalHits(totalHits+parseInt(info.h))
+            setTotalHits(totalHits+info.h)
         }
         setData()
     },[info.h])
@@ -143,10 +143,18 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     
     //Function to update state
     const handleChange = (e) =>{
-        setInfo({
-            ...info,
-            [e.target.name]: e.target.value
-        })
+        if(e.target.name ==="name" || e.target.name ==="position"){
+            setInfo({
+                ...info,
+                [e.target.name]: e.target.value
+            })
+        }else{
+            setInfo({
+                ...info,
+                [e.target.name]: parseInt(e.target.value)
+            })
+        }
+
     }
 
     //Getting players from firebase to append them to the select input
