@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Button from './../components/ui/Button';
 import {FirebaseContext} from '../firebase'
 import {useHistory} from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
+
 
 const Containers = styled(Container)`
     h2{
@@ -49,7 +49,6 @@ const BatCatch = styled.div`
 const NewPlayer = () => {
 
     const [player,setPlayer] = useState({
-        id: uuidv4(),
         name: '',
         lastname: '',
         number: null,

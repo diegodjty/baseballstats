@@ -177,6 +177,19 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         setPlayer(newPlayer)
     }
 
+    function setRefToDoc(){
+        players.map((player)=>{
+
+            Object.entries(info).map(([key,value])=>{
+                if(key==="name"){
+                    if(value===player.name+" "+player.lastname){
+                        info.id=player.id
+                    }
+                }
+            })
+
+        })
+    }
     
     const add = (e) => {
         e.preventDefault();
@@ -184,6 +197,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             ...playersInfo,
             info
         ])
+        setRefToDoc()
     }
     
 
