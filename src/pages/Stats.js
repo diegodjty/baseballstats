@@ -4,6 +4,7 @@ import Container from '../components/layout/Container';
 import {backIcon} from '../img'
 import {Link} from 'react-router-dom'
 import {FirebaseContext} from '../firebase'
+import StatsList from '../components/StatsList'
 
 const BackIconImg = styled.img`
     width: 40px;
@@ -19,47 +20,92 @@ const Box = styled.div`
         text-align: center;
         margin-bottom: 5rem;
     }
-    .Link{
-        text-decoration: none;
-        color: rgba(255,0,0)
+    ul{
+        list-style: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
     }
-    a{
-        margin-bottom: 20px;
+    li{
+        display: flex;
+        color: black;
+        font-weight: bold;
+        font-size: 1.2rem;
+        .quantity{
+            margin-left: auto;
+        }
     }
-
-    table{
-        margin-top: 2rem;
+    select{
+        margin-bottom: 1rem;
     }
 `;
 
 const Stats = () => {
 
     const {user,firebase} = useContext(FirebaseContext)
-    const [stats,setStats] = useState([])
+    const [players,setPlayers] = useState([])
+
     useEffect(() => {
         const getStats = () => {
-            firebase.db.collection('seasons').doc('season').collection('stats').onSnapshot(handelSnapshot)
+            firebase.db.collection('seasons').doc('season').collection('roster').onSnapshot(handelSnapshot)
         }
         getStats()
         // eslint-disable-next-line
     }, [])
     
     function handelSnapshot(snapshot){
-        const NewStats = snapshot.docs.map(doc =>{
+        const Player = snapshot.docs.map(doc =>{
             return{
                 id: doc.id,
                 ...doc.data()
             }
         })
-        setStats(NewStats)
+        setPlayers(Player)
     }
-
+    useEffect(()=>{
+        const setPlayerStats = () =>{
+            players.map((player)=>{
+                firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).set({
+                    name: player.name+" "+player.lastname,
+                    avg: 0,
+                    hr: 0,
+                    rbi: 0,
+                    r: 0,
+                    h: 0,
+                    b2: 0,
+                    b3: 0,
+                    g: 0,
+                    ab: 0,
+                    bb: 0,
+                    so: 0
+                })
+            })
+        }
+        setPlayerStats()
+       // eslint-disable-next-line
+    },[players])
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
         <Container>
             <Box>
                 <h2>Stats:</h2>
+                <select>
+                    <option value="avg">AVG</option>
+                    <option value="hr">HR</option>
+                    <option value="rbi">RBI</option>
+                    <option value="r">R</option>
+                    <option value="h">H</option>
+                    <option value="b2">2B</option>
+                    <option value="b3">3B</option>
+                    <option value="g">G</option>
+                    <option value="ab">AB</option>
+                    <option value="bb">BB</option>
+                    <option value="so">SO</option>
+                </select>
+                <ul>
+                    {players.map((player,index)=>(<StatsList player={player} index={index} />))}
+                </ul>
             </Box>
         </Container>
         

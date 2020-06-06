@@ -1,4 +1,4 @@
-import React,{useState,useContext,useRef} from 'react';
+import React,{useState,useContext,useRef,useEffect} from 'react';
 import styled from '@emotion/styled'
 import Container from '../components/layout/Container';
 import Button from '../components/ui/Button';
@@ -64,7 +64,7 @@ const NewGame = () => {
     //child component state ref
     const playerGameInfoStateRef = useRef(null)
     const totalRunsStateRef = useRef(null)
-    const totalErrorsStateRef = useRef(null)
+    const statsRef = useRef(null)
     const totalHitsStateRef = useRef(null)
 
     const [info,setInfo] = useState({
@@ -83,6 +83,27 @@ const NewGame = () => {
         })
     }
 
+    const [stat,setStat] = useState([])
+    useEffect(() => {
+        const getStats = () => {
+            firebase.db.collection('seasons').doc('season').collection('stats').onSnapshot(handelSnapshot)
+        }
+        getStats()
+        // eslint-disable-next-line
+    }, [])
+
+    function handelSnapshot(snapshot){
+        const newStat = snapshot.docs.map(doc =>{
+            return{
+                id: doc.id,
+                ...doc.data()
+            }
+            
+        })
+        setStat(newStat)
+    }
+    
+    
     
     //useHistory to redirect
     const history = useHistory()
@@ -96,6 +117,7 @@ const NewGame = () => {
         const params = playerGameInfoStateRef.current
         const totalR = totalRunsStateRef.current
         const totalH = totalHitsStateRef.current
+        const stats = statsRef.current
         //Combine child component state with this component state into an object 
         const data = {
             vsteaminfo: info,
@@ -103,11 +125,46 @@ const NewGame = () => {
             totalR,
             totalH
         }
+        // firebase.db.collection('seasons').doc('season').collection('games').add(data)
+        params.map((player)=>{
+            
+            if(stat.length!==0){
+                stat.map((s)=>{
+                    if(player.id===s.id){
+                        let newAb=player.ab+s.ab
+                        let newR=player.r+s.r
+                        let newH=player.h+s.h
+                        let newB2=player.b2+s.b2
+                        let newB3=player.b3+s.b3
+                        let newHr=player.hr+s.hr
+                        let newRbi=player.rbi+s.rbi
+                        let newBb=player.bb+s.bb
+                        let newSo=player.so+s.so
+                        firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).update({
+                            ab: newAb,
+                            r: newR,
+                            h: newH,
+                            b2: newB2,
+                            b3: newB3,
+                            hr: newHr,
+                            rbi: newRbi,
+                            bb: newBb,
+                            so: newSo
+                        })
+                    }
+                })
+            }
+        })
+        console.log('submited');
         
-        firebase.db.collection('seasons').doc('season').collection('games').add(data)
-
+        
         // Redirect to games page
-        history.push('/games')
+        // history.push('/games')
+        
+
+
+        
+
     }
 
     return (
