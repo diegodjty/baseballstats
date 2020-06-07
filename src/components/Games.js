@@ -98,7 +98,7 @@ const Games = ({game}) => {
                                 <td>{i.vsteaminfo.hits}</td>
                             </tr>
                         </table>
-                        <div className="footer">
+                        <div disabled="true" className="footer">
                             Details
                         </div>
                     </div>

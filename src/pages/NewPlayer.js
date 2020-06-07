@@ -66,7 +66,22 @@ const NewPlayer = () => {
     }
     const Submit = (e) => {
         e.preventDefault();
-        firebase.db.collection('seasons').doc('season').collection('roster').add(player)
+        firebase.db.collection('seasons').doc('season').collection('roster').add(player).then(function(docRef) {
+            firebase.db.collection('seasons').doc('season').collection('stats').doc(docRef.id).set({
+                name: player.name+" "+player.lastname,
+                avg: 0,
+                hr: 0,
+                rbi: 0,
+                r: 0,
+                h: 0,
+                b2: 0,
+                b3: 0,
+                g: 0,
+                ab: 0,
+                bb: 0,
+                so: 0
+            })
+        })
         history.push('/roster')
     }
 

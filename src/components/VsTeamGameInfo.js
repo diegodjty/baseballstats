@@ -24,15 +24,6 @@ const Form = styled.form`
         }
     }
 `
-
-/*
-
-        
-
-    
-
-*/
-
 const VsTeamGameInfo = () => {
     return (
         <Form>

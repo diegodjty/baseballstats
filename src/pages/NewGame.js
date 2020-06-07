@@ -125,7 +125,7 @@ const NewGame = () => {
             totalR,
             totalH
         }
-        // firebase.db.collection('seasons').doc('season').collection('games').add(data)
+        firebase.db.collection('seasons').doc('season').collection('games').add(data)
         params.map((player)=>{
             
             if(stat.length!==0){
@@ -155,16 +155,9 @@ const NewGame = () => {
                 })
             }
         })
-        console.log('submited');
-        
         
         // Redirect to games page
-        // history.push('/games')
-        
-
-
-        
-
+        history.push('/games')        
     }
 
     return (

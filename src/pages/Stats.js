@@ -62,28 +62,6 @@ const Stats = () => {
         })
         setPlayers(Player)
     }
-    useEffect(()=>{
-        const setPlayerStats = () =>{
-            players.map((player)=>{
-                firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).set({
-                    name: player.name+" "+player.lastname,
-                    avg: 0,
-                    hr: 0,
-                    rbi: 0,
-                    r: 0,
-                    h: 0,
-                    b2: 0,
-                    b3: 0,
-                    g: 0,
-                    ab: 0,
-                    bb: 0,
-                    so: 0
-                })
-            })
-        }
-        setPlayerStats()
-       // eslint-disable-next-line
-    },[players])
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
@@ -114,19 +92,3 @@ const Stats = () => {
 };
 
 export default Stats;
-
-
-// const handleChange = (e) =>{
-//     if(e.target.name ==="name" || e.target.name ==="position"){
-//         setInfo({
-//             ...info,
-//             [e.target.name]: e.target.value
-//         })
-//     }else{
-//         setInfo({
-//             ...info,
-//             [e.target.name]: parseInt(e.target.value)
-//         })
-//     }
-
-// }

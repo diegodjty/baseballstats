@@ -178,9 +178,6 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         
     }
 
-    
-
-    
     // functions that adds the id of the document to the player
     function setRefToDoc(){
         players.map((player)=>{
@@ -195,36 +192,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         })
     }
     
-    // const {ab,r,h,b2,b3,hr,rbi,bb,so} = s;
-    const [updateid,setUpdateID]= useState('')
-    // function updateStat(){
 
-    //     if(stat.length!==0){
-    //         stat.map((s)=>{
-    //             if(s.id===info.id){
-    //                 setUpdateID(info.id)
-    //             }
-    //         }) 
-    //         if(updateid.length!==0){
-
-    //             console.log(updateid)
-    //             firebase.db.collection('seasons').doc('season').collection('stats').doc(updateid).update({
-    //                 ab: info.ab,
-    //                 r: info.r,
-    //                 h: info.h,
-    //                 b2: info.b2,
-    //                 b3: info.b3,
-    //                 hr: info.hr,
-    //                 rbi: info.rbi,
-    //                 bb: info.bb,
-    //                 so: info.so
-    //             })
-    //         }
-            
-    //     }
-        
-    // }
-    
     const add = (e) => {
         e.preventDefault();
         setPlayersInfo([
@@ -232,7 +200,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             info
         ])
         setRefToDoc()
-        // updateStat()
+      
     }
     
 
