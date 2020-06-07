@@ -142,6 +142,7 @@ const NewGame = () => {
                         let newRbi=player.rbi+s.rbi
                         let newBb=player.bb+s.bb
                         let newSo=player.so+s.so
+                        let newG=s.g+1
                         firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).update({
                             ab: newAb,
                             avg: newH/newAb,
@@ -152,7 +153,8 @@ const NewGame = () => {
                             hr: newHr,
                             rbi: newRbi,
                             bb: newBb,
-                            so: newSo
+                            so: newSo,
+                            g: newG
                         })
                     }
                 })
