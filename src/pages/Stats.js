@@ -44,14 +44,15 @@ const Stats = () => {
 
     const {user,firebase} = useContext(FirebaseContext)
     const [players,setPlayers] = useState([])
+    const [select,setSelect] = useState('avg')
 
     useEffect(() => {
         const getStats = () => {
-            firebase.db.collection('seasons').doc('season').collection('roster').onSnapshot(handelSnapshot)
+            firebase.db.collection('seasons').doc('season').collection('stats').orderBy(select,'desc').onSnapshot(handelSnapshot)
         }
         getStats()
         // eslint-disable-next-line
-    }, [])
+    }, [select])
     
     function handelSnapshot(snapshot){
         const Player = snapshot.docs.map(doc =>{
@@ -62,13 +63,17 @@ const Stats = () => {
         })
         setPlayers(Player)
     }
+
+    const handelSelect = (e) =>{
+        setSelect(e.target.value)
+    }
     return (
     <>
         <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
         <Container>
             <Box>
                 <h2>Stats:</h2>
-                <select>
+                <select onChange={handelSelect}>
                     <option value="avg">AVG</option>
                     <option value="hr">HR</option>
                     <option value="rbi">RBI</option>
@@ -82,7 +87,7 @@ const Stats = () => {
                     <option value="so">SO</option>
                 </select>
                 <ul>
-                    {players.map((player,index)=>(<StatsList player={player} index={index} />))}
+                    {players.map((player,index)=>(<StatsList select={select} player={player} index={index} />))}
                 </ul>
             </Box>
         </Container>

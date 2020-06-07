@@ -84,12 +84,14 @@ const NewGame = () => {
     }
 
     const [stat,setStat] = useState([])
+    let isMounted = true; // note this flag denote mount status
     useEffect(() => {
         const getStats = () => {
             firebase.db.collection('seasons').doc('season').collection('stats').onSnapshot(handelSnapshot)
         }
         getStats()
         // eslint-disable-next-line
+        return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
     }, [])
 
     function handelSnapshot(snapshot){
@@ -142,6 +144,7 @@ const NewGame = () => {
                         let newSo=player.so+s.so
                         firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).update({
                             ab: newAb,
+                            avg: newH/newAb,
                             r: newR,
                             h: newH,
                             b2: newB2,
