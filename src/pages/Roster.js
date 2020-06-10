@@ -31,7 +31,7 @@ const Box = styled.div`
         margin-bottom: 20px;
     }
     .bar{
-        background-color: #c4c4c4;
+        background-color: #FFE600;
         color: black;
         padding: 5px 5px;
     }

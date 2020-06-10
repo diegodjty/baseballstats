@@ -25,18 +25,37 @@ const Box = styled.div`
         width: 100%;
         margin: 0;
         padding: 0;
+        border: solid white 1px;
+        padding: 1rem;
     }
     li{
         display: flex;
-        color: black;
+        color: white;
         font-weight: bold;
         font-size: 1.2rem;
+        margin-bottom: 0.3rem;
         .quantity{
             margin-left: auto;
         }
     }
     select{
         margin-bottom: 1rem;
+    }
+    .mini-btn-container{
+        .row{
+            width: 100%;
+            display: flex;
+
+            button{
+                width: 25%;
+                font-weight: 700;
+                text-transform: uppercase;
+                background-color: #fff;
+                border: solid 1px rgba(255, 0, 0, .70) ;
+                color: red;
+            }
+        }
+        margin-bottom: 2rem;
     }
 `;
 
@@ -73,20 +92,26 @@ const Stats = () => {
         <Container>
             <Box>
                 <h2>Stats:</h2>
-                <select onChange={handelSelect}>
-                    <option value="avg">AVG</option>
-                    <option value="hr">HR</option>
-                    <option value="rbi">RBI</option>
-                    <option value="r">R</option>
-                    <option value="h">H</option>
-                    <option value="b1">1B</option>
-                    <option value="b2">2B</option>
-                    <option value="b3">3B</option>
-                    <option value="g">G</option>
-                    <option value="ab">AB</option>
-                    <option value="bb">BB</option>
-                    <option value="so">SO</option>
-                </select>
+                <div className="mini-btn-container">
+                    <div className="row">
+                        <button value="avg" onClick={handelSelect}>AVG</button>
+                        <button value="hr" onClick={handelSelect}>HR</button>
+                        <button value="rbi" onClick={handelSelect}>RBI</button> 
+                        <button value="r" onClick={handelSelect}>R</button>
+                    </div>
+                     <div class="row">
+                        <button value="h" onClick={handelSelect}>H</button> 
+                        <button value="b1" onClick={handelSelect}>1B</button> 
+                        <button value="b2" onClick={handelSelect}>B2</button> 
+                        <button value="b3" onClick={handelSelect}>B3</button> 
+                     </div>
+                    <div class="row">
+                        <button value="g" onClick={handelSelect}>G</button> 
+                        <button value="ab" onClick={handelSelect}>AB</button> 
+                        <button value="bb" onClick={handelSelect}>BB</button> 
+                        <button value="so" onClick={handelSelect}>SO</button> 
+                    </div>
+                </div>
                 <ul>
                     {players.map((player,index)=>(<StatsList select={select} player={player} index={index} />))}
                 </ul>
