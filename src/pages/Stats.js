@@ -79,6 +79,7 @@ const Stats = () => {
                     <option value="rbi">RBI</option>
                     <option value="r">R</option>
                     <option value="h">H</option>
+                    <option value="b1">1B</option>
                     <option value="b2">2B</option>
                     <option value="b3">3B</option>
                     <option value="g">G</option>

@@ -74,12 +74,14 @@ const NewPlayer = () => {
                 rbi: 0,
                 r: 0,
                 h: 0,
+                b1: 0,
                 b2: 0,
                 b3: 0,
                 g: 0,
                 ab: 0,
                 bb: 0,
                 so: 0
+                 
             })
         })
         history.push('/roster')

@@ -81,13 +81,14 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         position: '',
         ab: 0,
         r: 0,
-        h:0,
+        h: 0,
+        b1: 0,
         b2: 0,
         b3: 0,
         hr: 0,
         rbi: 0,
         bb: 0,
-        so: 0,
+        so: 0
     });
     const [playersInfo,setPlayersInfo] = useState([])
     const [totalRuns,setTotalRuns] = useState(0)
@@ -128,19 +129,24 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     useEffect(()=>{
         const setData =() =>{
-            setTotalHits(totalHits+info.h)
+            setTotalHits(totalHits+(info.b1+info.b2+info.b3+info.hr))
         }
         setData()
-    },[info.h])
+    },[info.b1,info.b2,info.b3,info.hr])
 
-    
+    useEffect(()=>{
+        setInfo({
+            ...info,
+            h: info.b1+info.b2+info.b3+info.hr
+        })
+    },[info.b1+info.b2+info.b3+info.hr])
     
     //useHistory to redirect
     // const history = useHistory()
 
     //Connect to Firebase Context
     const {firebase} = useContext(FirebaseContext)
-    
+    const {b1,b2,b3,hr} = info
     //Function to update state
     const handleChange = (e) =>{
         if(e.target.name ==="name" || e.target.name ==="position"){
@@ -154,7 +160,6 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
                 [e.target.name]: parseInt(e.target.value)
             })
         }
-
     }
 
     //Getting players from firebase to append them to the select input
@@ -195,6 +200,9 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     const add = (e) => {
         e.preventDefault();
+        setInfo({...info,
+            h: parseInt(b1+b2+b3+hr)
+        })
         setPlayersInfo([
             ...playersInfo,
             info
@@ -233,22 +241,22 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
                         </select>
                     </div>
                     <div className="second-row">
-                        <input type="number" name="ab" onChange={handleChange} placeholder="AB"/>
-                        <input type="number" name="h" onChange={handleChange} placeholder="H"/>
-                        <input type="number" name="r" onChange={handleChange} placeholder="R"/>
+                        <input type="number" required name="ab" onChange={handleChange} placeholder="AB"/>
+                        <input type="number" required name="b1" onChange={handleChange} placeholder="1B"/>
+                        <input type="number" required name="b2"onChange={handleChange} placeholder="2B"/>
                     </div>
                     <div className="second-row">
-                        <input type="number" name="b2"onChange={handleChange} placeholder="2B"/>
-                        <input type="number" name="b3"onChange={handleChange} placeholder="3B"/>
-                        <input type="number" name="hr"onChange={handleChange} placeholder="HR"/>
+                        <input type="number" required name="b3"onChange={handleChange} placeholder="3B"/>
+                        <input type="number" required name="hr"onChange={handleChange} placeholder="HR"/>
+                        <input type="number" required name="r" onChange={handleChange} placeholder="R"/>
                     </div>
                     <div className="second-row">
-                        <input type="number" name="rbi" onChange={handleChange} placeholder="RBI"/>
-                        <input type="number" name="bb" onChange={handleChange} placeholder="BB"/>
-                        <input type="number" name="so" onChange={handleChange} placeholder="SO"/>
+                        <input type="number" required name="rbi" onChange={handleChange} placeholder="RBI"/>
+                        <input type="number" required name="bb" onChange={handleChange} placeholder="BB"/>
+                        <input type="number" required name="so" onChange={handleChange} placeholder="SO"/>
                     </div>
                 </div>
-                <Button type="submit" onClick={add} className="next-button">Next</Button>
+                <input  type="submit" onClick={add} className="next-button button" value="Next"/>
             </Form>
         </Containers>
     );

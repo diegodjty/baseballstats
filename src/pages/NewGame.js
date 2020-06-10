@@ -84,14 +84,13 @@ const NewGame = () => {
     }
 
     const [stat,setStat] = useState([])
-    let isMounted = true; // note this flag denote mount status
+   
     useEffect(() => {
         const getStats = () => {
             firebase.db.collection('seasons').doc('season').collection('stats').onSnapshot(handelSnapshot)
         }
         getStats()
         // eslint-disable-next-line
-        return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
     }, [])
 
     function handelSnapshot(snapshot){
@@ -132,10 +131,12 @@ const NewGame = () => {
             
             if(stat.length!==0){
                 stat.map((s)=>{
+                    console.log(s.b1);                    
                     if(player.id===s.id){
                         let newAb=player.ab+s.ab
                         let newR=player.r+s.r
-                        let newH=player.h+s.h
+                        let newH=player.h+s.b1+s.b2+s.b3+s.hr
+                        let newB1=player.b1+s.b1
                         let newB2=player.b2+s.b2
                         let newB3=player.b3+s.b3
                         let newHr=player.hr+s.hr
@@ -143,18 +144,21 @@ const NewGame = () => {
                         let newBb=player.bb+s.bb
                         let newSo=player.so+s.so
                         let newG=s.g+1
+
                         firebase.db.collection('seasons').doc('season').collection('stats').doc(player.id).update({
                             ab: newAb,
                             avg: newH/newAb,
                             r: newR,
                             h: newH,
+                            b1: newB1,
                             b2: newB2,
                             b3: newB3,
                             hr: newHr,
                             rbi: newRbi,
                             bb: newBb,
                             so: newSo,
-                            g: newG
+                            g: newG,
+                            
                         })
                     }
                 })
