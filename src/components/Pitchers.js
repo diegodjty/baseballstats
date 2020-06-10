@@ -25,7 +25,7 @@ const Pitchers = ({player}) => {
             }
           });
     }
-    const {firebase} = useContext(FirebaseContext)
+    const {user,firebase} = useContext(FirebaseContext)
     return (
         <PlayerContainer id={player}>
            <div className="player-info">
@@ -37,7 +37,9 @@ const Pitchers = ({player}) => {
                     <p>#{player.number}</p>
                     <p>B/T: {player.bats}{player.catchs}</p>
                </div>
-               <img className="delete" src={deleteIcon} onClick={deletes}  alt=""/>
+               {user &&(
+                 <img className="delete" src={deleteIcon} onClick={deletes}  alt=""/>
+               )}
            </div>
         </PlayerContainer>
     );

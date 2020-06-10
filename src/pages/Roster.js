@@ -1,10 +1,9 @@
 import React,{useContext} from 'react';
 import styled from '@emotion/styled'
 import Container from '../components/layout/Container';
-import {backIcon} from '../img'
+import {backIcon,add} from '../img'
 import {Link} from 'react-router-dom'
 import RosterPlayers from './../components/RosterPlayers';
-import {add} from '../img'
 import FirebaseContext from './../firebase/context';
 import BackIconImg from './../components/ui/BackIconImg';
 

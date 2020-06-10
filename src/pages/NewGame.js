@@ -110,7 +110,7 @@ const NewGame = () => {
     const history = useHistory()
 
     //Connect to Firebase Context
-    const {firebase} = useContext(FirebaseContext)
+    const {user,firebase} = useContext(FirebaseContext)
     const Submit = (e) => {
         e.preventDefault();
 
@@ -168,10 +168,11 @@ const NewGame = () => {
         // Redirect to games page
         history.push('/games')        
     }
-
+    
     return (
     <Containers>
-        <Form>
+        {user ?
+            <Form>
             <label htmlFor="">Vs Team</label>
             <input type="date"  name="date" onChange={handleChange} className="date" placeholder="Date"/>
                 <div className="vs-team">
@@ -191,6 +192,10 @@ const NewGame = () => {
                 />
             <Button type="submit" onClick={Submit} bgColor="true" className="button">Done</Button>
         </Form>
+        :
+            <div>YOur not allowed</div>
+        }
+        
     </Containers>
     );
 };
