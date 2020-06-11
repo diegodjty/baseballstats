@@ -35,23 +35,25 @@ const Form = styled.form`
     }
     .date{
         width: 100%;
+        color: white;
+        appearance: none;
     }
     .vs-team{
-        border: solid white 1px;
-        
         input{
             width: 100%;
             margin: 0;
             &::placeholder{
                 text-align: center;
+                color: white;
             }
         }
         .vs-team-final{
             display: flex;
+            margin-top: .5rem;
         }
     }
     .button{
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
     }
     label{
         font-size: 1.5rem;
@@ -173,7 +175,7 @@ const NewGame = () => {
         {user ?
             <Form>
             <label htmlFor="">Vs Team</label>
-            <input type="date"  name="date" onChange={handleChange} className="date" placeholder="Date"/>
+            <input placeholder="Date" type="date"  name="date" onChange={handleChange} className="date" />
                 <div className="vs-team">
                     <div className="vs-team-name">
                         <input type="text"  placeholder="Vs Team" name="vsteam"onChange={handleChange}/>

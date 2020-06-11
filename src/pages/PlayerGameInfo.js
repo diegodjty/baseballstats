@@ -38,7 +38,6 @@ const Form = styled.div`
         display: block;
     }
     .player-box{    
-        border: solid white 1px;
         margin-bottom: 1rem;
         .first-row,.second-row{
             display: flex;
@@ -68,7 +67,7 @@ const Form = styled.div`
     
     }
     .next-button{
-        margin-bottom: 1rem;
+        text-align: center;
     }
 `;
 
