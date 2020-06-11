@@ -10,6 +10,7 @@ const Button = styled.div`
     text-align: center;
     background-color: ${props => props.bgColor ? 'white' : 'none'};
     color: ${props => props.bgColor ? 'rgb(255,0,0)' : 'white'};
+    -webkit-appearance: none
 `
 
 export default Button
