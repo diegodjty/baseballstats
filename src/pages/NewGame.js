@@ -165,7 +165,7 @@ const NewGame = () => {
                 })
             }
         })
-        
+        document.getElementById('VsTeamForm').reset();
         // Redirect to games page
         history.push('/games')        
     }
@@ -173,7 +173,7 @@ const NewGame = () => {
     return (
     <Containers>
         {user ?
-            <Form>
+            <Form id="VsTeamForm">
             <label htmlFor="">Vs Team</label>
             <input placeholder="Date" type="date"  name="date" onChange={handleChange} className="date" />
                 <div className="vs-team">

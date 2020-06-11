@@ -3,6 +3,7 @@ import Container from '../components/layout/Container';
 import styled from '@emotion/styled';
 import {FirebaseContext} from '../firebase'
 // import {useHistory} from 'react-router-dom'
+import Error from '../components/ui/Error';
 
 
 const Containers = styled(Container)`
@@ -13,7 +14,7 @@ const Containers = styled(Container)`
     }
 `;
 
-const Form = styled.div`
+const Form = styled.form`
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
@@ -91,6 +92,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     const [playersInfo,setPlayersInfo] = useState([])
     const [totalRuns,setTotalRuns] = useState(0)
     const [totalHits,setTotalHits] = useState(0)
+    const [error,setError] = useState(false);
     
     useEffect(()=>{
         const setRef = ()=>{
@@ -147,7 +149,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     //Connect to Firebase Context
     const {firebase} = useContext(FirebaseContext)
-    const {b1,b2,b3,hr} = info
+    const {b1,b2,b3,hr,ab,rbi,r,so,bb} = info
     //Function to update state
     const handleChange = (e) =>{
         if(e.target.name ==="name" || e.target.name ==="position"){
@@ -200,10 +202,46 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
         })
     }
+
+
+    // Validate all fields not empty
+    const validateInputs = () =>{
+        console.log(ab)
+        if(
+            ab===0||
+            b1===0|| 
+            b2===0|| 
+            b3===0|| 
+            hr===0|| 
+            rbi===0||
+            r===0||
+            so===0|| 
+            bb===0
+        ){
+            setError(true);
+            return null;
+        }else{
+            setError(false);
+        }
+    }
     
+    const resetForm = () =>{
+        setInfo({
+            ab: 0,
+            b1: 0, 
+            b2: 0, 
+            b3: 0, 
+            hr: 0, 
+            rbi: 0,
+            r: 0,
+            so: 0, 
+            bb: 0
+        })
+    }
 
     const add = (e) => {
         e.preventDefault();
+        validateInputs()
         setInfo({...info,
             h: parseInt(b1+b2+b3+hr)
         })
@@ -212,13 +250,15 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             info
         ])
         setRefToDoc()
+        document.getElementById('playerForm').reset();
       
     }
     
 
     return (
         <Containers>
-            <Form>
+            <Form id="playerForm"> 
+                {error ?<Error msg="All fields are required" />:null}
                 <label htmlFor="">Lineup</label>
                 <div className="player-box">
                     <div className="first-row">
