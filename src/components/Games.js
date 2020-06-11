@@ -44,6 +44,7 @@ const Box = styled.div`
 
     table{
         border-bottom: solid black 2px;
+        width: 100%;
     }
     .footer{
         text-align: center;

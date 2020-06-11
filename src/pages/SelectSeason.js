@@ -28,6 +28,7 @@ const Box = styled.div`
     .link{
         text-decoration: none;
         color: white;
+        margin-bottom: 1rem;
     }
     .season-btn{
         margin-bottom: 1rem;
@@ -35,7 +36,23 @@ const Box = styled.div`
     a:nth-of-type(4){
        font-size: 1rem;
     }
+    .login{
+        margin-top: 1rem;
+        a{
+            text-decoration: none;
+            color: red;
+        }
+    }
 
+`;
+
+const Login = styled.div`
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    bottom: 20;
+    right: 2;
+    opacity: 0;
 `;
 
 const SelectSeason = () => {
@@ -62,6 +79,7 @@ const SelectSeason = () => {
         setSeason(newSeasons)
     }
     return (
+        <>
             <Container>
                 <Box>
                     <h2>Select Season:</h2>
@@ -71,17 +89,21 @@ const SelectSeason = () => {
                                 <Link to={"/season"} className="link">{season.year}</Link>
                             </Button>
                         ))}
-                        
+                    
+                    
                     </div>
                     {user && (
-                        <>
-                            <Button bgColor='true' Tcolor="true" className="season-btn">New Season</Button>
-                            <Button className="logout" bgColor='true' Tcolor="true" onClick={()=>firebase.logout()}>Logout</Button>
-                        </>
+                        <Button className="logout" bgColor='true' Tcolor="true" onClick={()=>firebase.logout()}>Logout</Button>
                     )}
                        
                 </Box>  
             </Container>
+            {!user &&(
+                <Login>
+                    <Link className="login" to={"/login"}>Login</Link>
+                </Login>
+            )}
+        </>
     );
 };
 
