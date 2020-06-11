@@ -6,6 +6,7 @@ import {add} from '../img'
 import FirebaseContext from '../firebase/context';
 import BackIconImg from '../components/ui/BackIconImg';
 import Games from './../components/Games';
+import { v4 as uuidv4 } from 'uuid'
 
 const AddIcon = styled.img`
     width: 40px;
@@ -37,15 +38,17 @@ const GamesList = () => {
         setGame(newGame)
         
     }
+    const idkey= uuidv4();
     return (
     <>
-        
-        <Link to={"/season"}><BackIconImg src={backIcon} alt=""/></Link>
+         
+        <Link to={"/season"}><BackIconImg src={backIcon} /></Link>
         {user &&(
-            <Link to={"/new/game"}><AddIcon src={add} alt=""/></Link>
+            <Link to={"/new/game"}><AddIcon src={add} a/></Link>
         )}
-        {game[0]? 
-            <Games key={game[0].id} game={game}/>
+        
+        {game[0] ? 
+            <Games key={idkey} game={game} />
         : null}
         
     </>

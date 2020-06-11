@@ -29,11 +29,12 @@ const Box = styled.div`
 
     .Link{
         text-decoration: none;
-        color: rgba(255,0,0)
+        color: rgba(255,0,0); 
     }
-    a{
-        margin-bottom: 20px;
+    .btn{
+        margin-bottom: 1rem;
     }
+    
 `;
 
 const Season = () => {
@@ -44,9 +45,9 @@ const Season = () => {
                 <Box>
                     <h2>Season 2020:</h2>
                     <div className="seasonBtn">
-                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/games'}>Games</Link></Button>
-                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/roster'}>Roster</Link></Button>
-                        <Button bgColor='true' Tcolor="true"><Link className="Link" to={'/stats'}>Stats</Link></Button>
+                        <Button bgColor='true' Tcolor="true" className="btn"><Link className="Link" to={'/games'}>Games</Link></Button>
+                        <Button bgColor='true' Tcolor="true" className="btn"><Link className="Link" to={'/roster'}>Roster</Link></Button>
+                        <Button bgColor='true' Tcolor="true" className="btn"><Link className="Link" to={'/stats'}>Stats</Link></Button>
                     </div> 
                 </Box>  
             </Container>

@@ -61,7 +61,7 @@ const Box = styled.div`
 
 const Stats = () => {
 
-    const {user,firebase} = useContext(FirebaseContext)
+    const {firebase} = useContext(FirebaseContext)
     const [players,setPlayers] = useState([])
     const [select,setSelect] = useState('avg')
 
@@ -99,13 +99,13 @@ const Stats = () => {
                         <button value="rbi" onClick={handelSelect}>RBI</button> 
                         <button value="r" onClick={handelSelect}>R</button>
                     </div>
-                     <div class="row">
+                     <div className="row">
                         <button value="h" onClick={handelSelect}>H</button> 
                         <button value="b1" onClick={handelSelect}>1B</button> 
                         <button value="b2" onClick={handelSelect}>B2</button> 
                         <button value="b3" onClick={handelSelect}>B3</button> 
                      </div>
-                    <div class="row">
+                    <div className="row">
                         <button value="g" onClick={handelSelect}>G</button> 
                         <button value="ab" onClick={handelSelect}>AB</button> 
                         <button value="bb" onClick={handelSelect}>BB</button> 
@@ -113,7 +113,7 @@ const Stats = () => {
                     </div>
                 </div>
                 <ul>
-                    {players.map((player,index)=>(<StatsList select={select} player={player} index={index} />))}
+                    {players.map((player,index)=>(<StatsList key={index} select={select} player={player} index={index} />))}
                 </ul>
             </Box>
         </Container>

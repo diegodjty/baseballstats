@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import Container from './layout/Container';
 import styled from '@emotion/styled'
 
@@ -36,7 +36,7 @@ const Box = styled.div`
         align-items: center;
         border-bottom: solid black 2px;
         padding-bottom: .5rem;
-        span:first-child{
+        span:first-of-type{
             color: #c4c4c4;
             font-weight: bold;
         }
@@ -61,7 +61,6 @@ const Box = styled.div`
     }
 `;
 const Games = ({game}) => {
-
     const whoWon = (teamR,VsTeamR)=>{
         if(teamR < VsTeamR){
             return <span className="lost"> L </span>
@@ -75,34 +74,36 @@ const Games = ({game}) => {
             <Box>
                 <h2>Games</h2>
                 {game.map((i)=>(
-                    <>
-                        
-                    <div className="game-card">
+                    <div className="game-card" key={i.id}>
                         <div className="head">
                             <span>Final</span> <span>{i.vsteaminfo.date}</span> {whoWon(i.totalR,i.vsteaminfo.runs)}
                         </div>
                         <table>
-                            <tr>
-                                <td></td>
-                                <td>R</td>
-                                <td>H</td>
-                            </tr>
-                            <tr>
-                                <td>Los Patrones</td>
-                                <td>{i.totalR}</td>
-                                <td>{i.totalH}</td>
-                            </tr>
-                            <tr>
-                                <td>{i.vsteaminfo.vsteam}</td>
-                                <td>{i.vsteaminfo.runs}</td>
-                                <td>{i.vsteaminfo.hits}</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>R</td>
+                                    <td>H</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Los Patrones</td>
+                                    <td>{i.totalR}</td>
+                                    <td>{i.totalH}</td>
+                                </tr>
+                                <tr>
+                                    <td>{i.vsteaminfo.vsteam}</td>
+                                    <td>{i.vsteaminfo.runs}</td>
+                                    <td>{i.vsteaminfo.hits}</td>
+                                </tr>
+                            </tbody>
                         </table>
-                        <div disabled="true" className="footer">
+                        <div className="footer">
                             Details
                         </div>
                     </div>
-                    </>
+                    
                 ))}
             </Box>  
         </Container>

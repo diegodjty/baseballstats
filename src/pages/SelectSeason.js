@@ -29,11 +29,10 @@ const Box = styled.div`
         text-decoration: none;
         color: white;
     }
-    a:nth-child(3){
-       font-size: 1rem;
-       margin-bottom: 2rem; 
+    .season-btn{
+        margin-bottom: 1rem;
     }
-    a:nth-child(4){
+    a:nth-of-type(4){
        font-size: 1rem;
     }
 
@@ -68,13 +67,15 @@ const SelectSeason = () => {
                     <h2>Select Season:</h2>
                     <div className="seasonsBtn">
                         {seasons.map(season=>(
-                            <Button key={season.id}><Link to={"/season"} className="link">{season.year}</Link></Button>
+                            <Button key={season.id}>
+                                <Link to={"/season"} className="link">{season.year}</Link>
+                            </Button>
                         ))}
                         
                     </div>
                     {user && (
                         <>
-                            <Button bgColor='true' Tcolor="true">New Season</Button>
+                            <Button bgColor='true' Tcolor="true" className="season-btn">New Season</Button>
                             <Button className="logout" bgColor='true' Tcolor="true" onClick={()=>firebase.logout()}>Logout</Button>
                         </>
                     )}

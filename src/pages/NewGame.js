@@ -64,7 +64,6 @@ const NewGame = () => {
     //child component state ref
     const playerGameInfoStateRef = useRef(null)
     const totalRunsStateRef = useRef(null)
-    const statsRef = useRef(null)
     const totalHitsStateRef = useRef(null)
 
     const [info,setInfo] = useState({
@@ -118,7 +117,6 @@ const NewGame = () => {
         const params = playerGameInfoStateRef.current
         const totalR = totalRunsStateRef.current
         const totalH = totalHitsStateRef.current
-        const stats = statsRef.current
         //Combine child component state with this component state into an object 
         const data = {
             vsteaminfo: info,
@@ -127,9 +125,10 @@ const NewGame = () => {
             totalH
         }
         firebase.db.collection('seasons').doc('season').collection('games').add(data)
+        // eslint-disable-next-line
         params.map((player)=>{
-            
             if(stat.length!==0){
+                // eslint-disable-next-line
                 stat.map((s)=>{
                     console.log(s.b1);                    
                     if(player.id===s.id){

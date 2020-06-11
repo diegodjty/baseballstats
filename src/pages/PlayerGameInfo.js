@@ -1,7 +1,6 @@
 import React,{useState,useContext,useEffect} from 'react';
 import Container from '../components/layout/Container';
 import styled from '@emotion/styled';
-import Button from '../components/ui/Button';
 import {FirebaseContext} from '../firebase'
 // import {useHistory} from 'react-router-dom'
 
@@ -117,6 +116,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             setTotalRuns(totalRuns+info.r)
         }
         setData()
+        // eslint-disable-next-line
     },[info.r])
 
     useEffect(()=>{
@@ -132,6 +132,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             setTotalHits(totalHits+(info.b1+info.b2+info.b3+info.hr))
         }
         setData()
+        // eslint-disable-next-line
     },[info.b1,info.b2,info.b3,info.hr])
 
     useEffect(()=>{
@@ -139,6 +140,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             ...info,
             h: info.b1+info.b2+info.b3+info.hr
         })
+        // eslint-disable-next-line
     },[info.b1+info.b2+info.b3+info.hr])
     
     //useHistory to redirect
@@ -186,13 +188,16 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     // functions that adds the id of the document to the player
     function setRefToDoc(){
         players.map((player)=>{
-            Object.entries(info).map(([key,value])=>{
-                if(key==="name"){
-                    if(value===player.name+" "+player.lastname){
-                        info.id=player.id
+            return (
+                // eslint-disable-next-line
+                Object.entries(info).map(([key,value])=>{
+                    if(key==="name"){
+                        if(value===player.name+" "+player.lastname){
+                            return info.id=player.id
+                        }
                     }
-                }
-            })
+                })
+            )
 
         })
     }
