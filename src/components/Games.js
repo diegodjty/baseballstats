@@ -20,7 +20,7 @@ const Box = styled.div`
     }
 
     .game-card{
-        display: flex;
+        display: block;
         flex-direction: column;
         background-color: #fff;
         padding: 1rem;

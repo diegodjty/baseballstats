@@ -130,19 +130,12 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     useEffect(()=>{
         const setData =() =>{
-            setTotalHits(totalHits+(info.b1+info.b2+info.b3+info.hr))
+            setTotalHits(totalHits+info.h)
         }
         setData()
         // eslint-disable-next-line
-    },[info.b1,info.b2,info.b3,info.hr])
+    },[info.h])
 
-    useEffect(()=>{
-        setInfo({
-            ...info,
-            h: info.b1+info.b2+info.b3+info.hr
-        })
-        // eslint-disable-next-line
-    },[info.b1+info.b2+info.b3+info.hr])
     
     //useHistory to redirect
     // const history = useHistory()
@@ -206,16 +199,15 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
 
     // Validate all fields not empty
     const validateInputs = () =>{
-        console.log(ab)
         if(
-            ab===0||
-            b1===0|| 
-            b2===0|| 
-            b3===0|| 
-            hr===0|| 
-            rbi===0||
-            r===0||
-            so===0|| 
+            ab===0  ||
+            b1===0  || 
+            b2===0  || 
+            b3===0  || 
+            hr===0  || 
+            rbi===0 ||
+            r===0   ||
+            so===0  || 
             bb===0
         ){
             setError(true);
@@ -223,20 +215,6 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         }else{
             setError(false);
         }
-    }
-    
-    const resetForm = () =>{
-        setInfo({
-            ab: 0,
-            b1: 0, 
-            b2: 0, 
-            b3: 0, 
-            hr: 0, 
-            rbi: 0,
-            r: 0,
-            so: 0, 
-            bb: 0
-        })
     }
 
     const add = (e) => {
