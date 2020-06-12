@@ -22,7 +22,7 @@ const GamesList = () => {
     
     useEffect(() => {
         const getPlayers = () => {
-            firebase.db.collection('seasons').doc('season').collection('games').onSnapshot(handelSnapshot)
+            firebase.db.collection('seasons').doc('season').collection('games').orderBy('vsteaminfo','desc').onSnapshot(handelSnapshot)
         }
         getPlayers()
         // eslint-disable-next-line
