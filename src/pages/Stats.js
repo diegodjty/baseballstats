@@ -48,6 +48,7 @@ const Box = styled.div`
 
             button{
                 width: 25%;
+                height: 40px;
                 font-weight: 700;
                 text-transform: uppercase;
                 background-color: #fff;
