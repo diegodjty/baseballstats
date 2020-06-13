@@ -175,7 +175,7 @@ const NewGame = () => {
         {user ?
             <Form id="VsTeamForm">
             <label htmlFor="">Vs Team</label>
-            <input placeholder="Date" type="date"  name="date" onChange={handleChange} className="date" />
+            <input placeholder="Date" type="date"  name="date" onChange={handleChange} className="date"  />
                 <div className="vs-team">
                     <div className="vs-team-name">
                         <input type="text"  placeholder="Vs Team" name="vsteam"onChange={handleChange}/>

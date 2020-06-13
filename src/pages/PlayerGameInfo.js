@@ -2,7 +2,6 @@ import React,{useState,useContext,useEffect} from 'react';
 import Container from '../components/layout/Container';
 import styled from '@emotion/styled';
 import {FirebaseContext} from '../firebase'
-// import {useHistory} from 'react-router-dom'
 import Error from '../components/ui/Error';
 
 
@@ -113,14 +112,6 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     },[totalRuns])
 
     useEffect(()=>{
-        const setData =() =>{
-            setTotalRuns(totalRuns+info.r)
-        }
-        setData()
-        // eslint-disable-next-line
-    },[info.r])
-
-    useEffect(()=>{
         const setRef = ()=>{
             totalHitsStateRef.current = totalHits;
         }
@@ -137,12 +128,8 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     },[info.h])
 
     
-    //useHistory to redirect
-    // const history = useHistory()
-
     //Connect to Firebase Context
     const {firebase} = useContext(FirebaseContext)
-    const {b1,b2,b3,hr,ab,rbi,r,so,bb} = info
     //Function to update state
     const handleChange = (e) =>{
         if(e.target.name ==="name" || e.target.name ==="position"){
@@ -216,13 +203,15 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             setError(false);
         }
     }
-
+    const {b1,b2,b3,hr,ab,rbi,r,so,bb} = info
     const add = (e) => {
         e.preventDefault();
         validateInputs()
         setInfo({...info,
-            h: parseInt(b1+b2+b3+hr)
+            h: b1+b2+b3+hr
         })
+        setTotalRuns(totalRuns+info.r)
+        setTotalHits(totalHits+info.h)
         setPlayersInfo([
             ...playersInfo,
             info
@@ -264,12 +253,12 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
                     </div>
                     <div className="second-row">
                         <input type="number" required name="ab" onChange={handleChange} placeholder="AB"/>
-                        <input type="number" required name="b1" onChange={handleChange} placeholder="1B"/>
-                        <input type="number" required name="b2"onChange={handleChange} placeholder="2B"/>
+                        <input type="number" required name="b1" onChange={handleChange}  placeholder="1B"/>
+                        <input type="number" required name="b2"onChange={handleChange}  placeholder="2B"/>
                     </div>
                     <div className="second-row">
-                        <input type="number" required name="b3"onChange={handleChange} placeholder="3B"/>
-                        <input type="number" required name="hr"onChange={handleChange} placeholder="HR"/>
+                        <input type="number" required name="b3"onChange={handleChange}  placeholder="3B"/>
+                        <input type="number" required name="hr"onChange={handleChange}  placeholder="HR"/>
                         <input type="number" required name="r" onChange={handleChange} placeholder="R"/>
                     </div>
                     <div className="second-row">
