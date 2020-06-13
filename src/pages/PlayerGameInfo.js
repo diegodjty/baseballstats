@@ -120,12 +120,11 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     },[totalHits])
 
     useEffect(()=>{
-        const setData =() =>{
-            setTotalHits(totalHits+info.h)
-        }
-        setData()
-        // eslint-disable-next-line
-    },[info.h])
+        setInfo({
+            ...info,
+            h: b1+b2+b3+hr
+        })
+    },[info.b1,info.b2,info.b3,info.hr])
 
     
     //Connect to Firebase Context
@@ -218,7 +217,6 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         ])
         setRefToDoc()
         document.getElementById('playerForm').reset();
-      
     }
     
 
@@ -254,17 +252,17 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
                     <div className="second-row">
                         <input type="number" required name="ab" onChange={handleChange} placeholder="AB"/>
                         <input type="number" required name="b1" onChange={handleChange}  placeholder="1B"/>
-                        <input type="number" required name="b2"onChange={handleChange}  placeholder="2B"/>
+                        <input type="number" required name="b2" onChange={handleChange}  placeholder="2B"/>
                     </div>
                     <div className="second-row">
-                        <input type="number" required name="b3"onChange={handleChange}  placeholder="3B"/>
-                        <input type="number" required name="hr"onChange={handleChange}  placeholder="HR"/>
-                        <input type="number" required name="r" onChange={handleChange} placeholder="R"/>
+                        <input type="number" required name="b3" onChange={handleChange}  placeholder="3B"/>
+                        <input type="number" required name="hr" onChange={handleChange}  placeholder="HR"/>
+                        <input type="number" required name="r"  onChange={handleChange} placeholder="R"/>
                     </div>
                     <div className="second-row">
                         <input type="number" required name="rbi" onChange={handleChange} placeholder="RBI"/>
-                        <input type="number" required name="bb" onChange={handleChange} placeholder="BB"/>
-                        <input type="number" required name="so" onChange={handleChange} placeholder="SO"/>
+                        <input type="number" required name="bb"  onChange={handleChange} placeholder="BB"/>
+                        <input type="number" required name="so"  onChange={handleChange} placeholder="SO"/>
                     </div>
                 </div>
                 <input  type="submit" onClick={add} className="next-button button" value="Next"/>
