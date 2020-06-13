@@ -92,6 +92,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     const [totalRuns,setTotalRuns] = useState(0)
     const [totalHits,setTotalHits] = useState(0)
     const [error,setError] = useState(false);
+    const [battingNumber,setBattingNumber] = useState(1)
     
     useEffect(()=>{
         const setRef = ()=>{
@@ -122,9 +123,17 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     useEffect(()=>{
         setInfo({
             ...info,
-            h: b1+b2+b3+hr
+            h: b1+b2+b3+hr,
         })
     },[info.b1,info.b2,info.b3,info.hr])
+
+    useEffect(()=>{
+        setInfo({
+            ...info,
+            battingnumber: battingNumber
+        })
+        
+    },[battingNumber])
 
     
     //Connect to Firebase Context
@@ -207,8 +216,10 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         e.preventDefault();
         validateInputs()
         setInfo({...info,
-            h: b1+b2+b3+hr
+            h: b1+b2+b3+hr,
+            battingnumber: battingNumber
         })
+        setBattingNumber(battingNumber+1)
         setTotalRuns(totalRuns+info.r)
         setTotalHits(totalHits+info.h)
         setPlayersInfo([
@@ -227,7 +238,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
                 <label htmlFor="">Lineup</label>
                 <div className="player-box">
                     <div className="first-row">
-                        <input type="number"  name="battingnumber" onChange={handleChange} className="batting-number"/>
+                        <input type="number"  name="battingnumber" value={battingNumber} onChange={handleChange} className="batting-number"/>
                         <select name="name"   className="player-name" onChange={handleChange}>
                             <option>--Player--</option>
                             {players.map(player=>(
