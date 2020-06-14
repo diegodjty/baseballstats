@@ -25,6 +25,7 @@ const RosterPlayers = () => {
         })
         setPlayer(newPlayer)
     }
+    
     return (
         <>
             <div className="bar">Pitchers</div>

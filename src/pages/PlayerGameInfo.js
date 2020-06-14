@@ -125,6 +125,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             ...info,
             h: b1+b2+b3+hr,
         })
+        // eslint-disable-next-line
     },[info.b1,info.b2,info.b3,info.hr])
 
     useEffect(()=>{
@@ -132,7 +133,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
             ...info,
             battingnumber: battingNumber
         })
-        
+       // eslint-disable-next-line 
     },[battingNumber])
 
     

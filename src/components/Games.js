@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from './layout/Container';
 import styled from '@emotion/styled'
+import { Link } from 'react-router-dom';
 
 const Box = styled.div`
     height: 100%;
@@ -101,7 +102,7 @@ const Games = ({game}) => {
                             </tbody>
                         </table>
                         <div className="footer">
-                            Details
+                            <Link to={`gameDetails/${i.id}`}>Details</Link>
                         </div>
                     </div>
                     
