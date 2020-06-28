@@ -123,10 +123,10 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
     useEffect(()=>{
         setInfo({
             ...info,
-            h: b1+b2+b3+hr,
+            h: b1+b2+b3+hr+bb,
         })
         // eslint-disable-next-line
-    },[info.b1,info.b2,info.b3,info.hr])
+    },[info.b1,info.b2,info.b3,info.hr,info.bb])
 
     useEffect(()=>{
         setInfo({
@@ -217,7 +217,7 @@ const PlayerGameInfo = ({stateRef,totalRunsStateRef,totalHitsStateRef}) => {
         e.preventDefault();
         validateInputs()
         setInfo({...info,
-            h: b1+b2+b3+hr,
+            h: b1+b2+b3+hr+bb,
             battingnumber: battingNumber
         })
         setBattingNumber(battingNumber+1)

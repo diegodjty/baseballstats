@@ -136,7 +136,7 @@ const NewGame = () => {
                     if(player.id===s.id){
                         let newAb=player.ab+s.ab
                         let newR=player.r+s.r
-                        let newH=player.h+s.b1+s.b2+s.b3+s.hr
+                        let newH=player.h+s.b1+s.b2+s.b3+s.hr+s.bb
                         let newB1=player.b1+s.b1
                         let newB2=player.b2+s.b2
                         let newB3=player.b3+s.b3
