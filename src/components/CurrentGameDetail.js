@@ -63,7 +63,7 @@ const Form = styled.form`
 
 const CurrentGameDetail = ({details}) => {
     console.log(details);
-    const {id,playerinfo,totalH,totalR,vsteaminfo} = details
+    const {playerinfo} = details
     return (
         <>
             <Link to={"/games"}><BackIconImg src={backIcon} alt=""/></Link>

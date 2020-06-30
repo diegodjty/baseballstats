@@ -1,4 +1,4 @@
-import React,{useContext,useState,useEffect,useMemo} from 'react'
+import React,{useContext,useState,useEffect} from 'react'
 import {FirebaseContext} from './../firebase'
 import CurrentGameDetail from '../components/CurrentGameDetail';
 
@@ -31,6 +31,7 @@ const GameDetails = ({match}) => {
             if(game.id===gameid){
                 currentGame=game;
             }
+            return 0;
         })
     }
     return (
