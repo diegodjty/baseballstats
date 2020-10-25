@@ -20,6 +20,12 @@ const Box = styled.div`
         text-align: center;
         margin-bottom: 5rem;
     }
+    h3{
+        text-align: center;
+        font-size: 1.8rem;
+        color: #FFE600;
+        text-decoration: underline;
+    }
     ul{
         list-style: none;
         width: 100%;
@@ -93,6 +99,7 @@ const Stats = () => {
         <Container>
             <Box>
                 <h2>Stats:</h2>
+                <h3>{select.toUpperCase()}</h3>
                 <div className="mini-btn-container">
                     <div className="row">
                         <button value="avg" onClick={handelSelect}>AVG</button>
