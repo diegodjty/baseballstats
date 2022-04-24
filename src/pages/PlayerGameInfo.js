@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { FirebaseContext } from '../firebase';
 import Error from '../components/ui/Error';
 import { AppContext } from '../components/Context';
+import PitcherInfo from '../components/PitcherInfo';
 
 const Containers = styled(Container)`
   h2 {
@@ -72,7 +73,15 @@ const Form = styled.form`
   }
 `;
 
-const PlayerGameInfo = ({ stateRef, totalRunsStateRef, totalHitsStateRef }) => {
+const PlayerGameInfo = ({
+  stateRef,
+  totalRunsStateRef,
+  totalHitsStateRef,
+  setClosingPitcher,
+  pitcher,
+  setPitcher,
+  closingPitcher,
+}) => {
   const [info, setInfo] = useState({
     battingnumber: 0,
     name: '',
@@ -345,6 +354,12 @@ const PlayerGameInfo = ({ stateRef, totalRunsStateRef, totalHitsStateRef }) => {
           onClick={add}
           className="next-button button"
           value="Next"
+        />
+        <PitcherInfo
+          info={info}
+          setClosingPitcher={setClosingPitcher}
+          setPitcher={setPitcher}
+          pitcher={pitcher}
         />
       </Form>
     </Containers>

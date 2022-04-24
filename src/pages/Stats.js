@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
 import StatsList from '../components/StatsList';
 import { AppContext } from '../components/Context';
+import PitcherStatsList from '../components/PitcherStatsList';
 
 const BackIconImg = styled.img`
   width: 40px;
@@ -13,13 +14,13 @@ const BackIconImg = styled.img`
   margin-left: 10px;
 `;
 const Box = styled.div`
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   h2 {
     font-size: 2.2rem;
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 0.5rem;
   }
   h3 {
     text-align: center;
@@ -34,6 +35,7 @@ const Box = styled.div`
     padding: 0;
     border: solid white 1px;
     padding: 1rem;
+    margin-top: 2rem;
   }
   li {
     display: flex;
@@ -48,29 +50,31 @@ const Box = styled.div`
   select {
     margin-bottom: 1rem;
   }
-  .mini-btn-container {
-    .row {
-      width: 100%;
-      display: flex;
 
-      button {
-        width: 25%;
-        height: 40px;
-        font-weight: 700;
-        text-transform: uppercase;
-        background-color: #fff;
-        border: solid 1px rgba(255, 0, 0, 0.7);
-        color: red;
-      }
+  .row {
+    width: 100%;
+    display: flex;
+
+    button {
+      width: 25%;
+      height: 40px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: #fff;
+      border: solid 1px rgba(255, 0, 0, 0.7);
+      color: red;
     }
-    margin-bottom: 2rem;
   }
+
+  margin-bottom: 2rem;
 `;
 
 const Stats = () => {
   const { firebase } = useContext(FirebaseContext);
   const [players, setPlayers] = useState([]);
-  const [select, setSelect] = useState('avg');
+  const [pitchers, setPitchers] = useState([]);
+  const [selectBatters, setSelectBatters] = useState('avg');
+  const [selectPitchers, setSelectPitchers] = useState('l');
   // eslint-disable-next-line
   const [season, setSeason] = useContext(AppContext);
 
@@ -80,12 +84,12 @@ const Stats = () => {
         .collection('seasons')
         .doc(`${season}`)
         .collection('stats')
-        .orderBy(select, 'desc')
+        .orderBy(selectBatters, 'desc')
         .onSnapshot(handelSnapshot);
     };
     getStats();
     // eslint-disable-next-line
-  }, [select]);
+  }, [selectBatters]);
 
   function handelSnapshot(snapshot) {
     const Player = snapshot.docs.map((doc) => {
@@ -96,9 +100,34 @@ const Stats = () => {
     });
     setPlayers(Player);
   }
+  useEffect(() => {
+    const getStatss = () => {
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('pitcherStats')
+        .orderBy(selectPitchers, 'desc')
+        .onSnapshot(handelSnapshot2);
+    };
+    getStatss();
+    // eslint-disable-next-line
+  }, [selectPitchers]);
+
+  function handelSnapshot2(snapshot) {
+    const Players = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+    setPitchers(Players);
+  }
 
   const handelSelect = (e) => {
-    setSelect(e.target.value);
+    setSelectBatters(e.target.value);
+  };
+  const handleSelect = (e) => {
+    setSelectPitchers(e.target.value);
   };
   return (
     <>
@@ -107,8 +136,8 @@ const Stats = () => {
       </Link>
       <Container>
         <Box>
-          <h2>Stats:</h2>
-          <h3>{select.toUpperCase()}</h3>
+          <h2>Batting Stats:</h2>
+          <h3>{selectBatters.toUpperCase()}</h3>
           <div className="mini-btn-container">
             <div className="row">
               <button value="avg" onClick={handelSelect}>
@@ -157,8 +186,31 @@ const Stats = () => {
             {players.map((player, index) => (
               <StatsList
                 key={index}
-                select={select}
+                select={selectBatters}
                 player={player}
+                index={index}
+              />
+            ))}
+          </ul>
+          <h2>Pitching Stats:</h2>
+          <div className="row">
+            <button value="w" onClick={handleSelect}>
+              W
+            </button>
+            <button value="l" onClick={handleSelect}>
+              L
+            </button>
+            <button value="s" onClick={handleSelect}>
+              S
+            </button>
+            <button disabled></button>
+          </div>
+          <ul>
+            {pitchers.map((pitcher, index) => (
+              <PitcherStatsList
+                key={index}
+                select={selectPitchers}
+                pitcher={pitcher}
                 index={index}
               />
             ))}

@@ -69,9 +69,26 @@ const NewGame = () => {
   const playerGameInfoStateRef = useRef(null);
   const totalRunsStateRef = useRef(null);
   const totalHitsStateRef = useRef(null);
+  const [closingPitcher, setClosingPitcher] = useState('');
   // eslint-disable-next-line
   const [season, setSeason] = useContext(AppContext);
+  //useHistory to redirect
+  const history = useHistory();
+  const [pitcher, setPitcher] = useState('');
 
+  //Connect to Firebase Context
+  const { user, firebase } = useContext(FirebaseContext);
+  const [record, setRecord] = useState({
+    w: 0,
+    l: 0,
+  });
+  const [precord, setPrecord] = useState({
+    w: 0,
+    l: 0,
+  });
+  const [cprecord, setCPrecord] = useState({
+    s: 0,
+  });
   const [info, setInfo] = useState({
     date: '',
     vsteam: '',
@@ -79,16 +96,41 @@ const NewGame = () => {
     hits: '',
     errors: '',
   });
-
-  //Function to update state
-  const handleChange = (e) => {
-    setInfo({
-      ...info,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const [stat, setStat] = useState([]);
+  useEffect(() => {
+    firebase.db
+      .collection('seasons')
+      .doc(`${season}`)
+      .collection('record')
+      .doc('record')
+      .get()
+      .then((doc) => setRecord(doc.data()));
+  });
+
+  useEffect(() => {
+    if (pitcher.id) {
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('pitcherStats')
+        .doc(pitcher.id)
+        .get()
+        .then((doc) => setPrecord(doc.data()));
+    }
+    // eslint-disable-next-line
+  }, [pitcher.id]);
+  useEffect(() => {
+    if (closingPitcher.id) {
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('pitcherStats')
+        .doc(closingPitcher.id)
+        .get()
+        .then((doc) => setCPrecord(doc.data()));
+    }
+    // eslint-disable-next-line
+  }, [closingPitcher.id]);
 
   useEffect(() => {
     const getStats = () => {
@@ -112,11 +154,14 @@ const NewGame = () => {
     setStat(newStat);
   }
 
-  //useHistory to redirect
-  const history = useHistory();
+  //Function to update state
+  const handleChange = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  //Connect to Firebase Context
-  const { user, firebase } = useContext(FirebaseContext);
   const Submit = (e) => {
     e.preventDefault();
 
@@ -124,6 +169,7 @@ const NewGame = () => {
     const params = playerGameInfoStateRef.current;
     const totalR = totalRunsStateRef.current;
     const totalH = totalHitsStateRef.current;
+
     //Combine child component state with this component state into an object
     const data = {
       vsteaminfo: info,
@@ -177,6 +223,59 @@ const NewGame = () => {
         });
       }
     });
+
+    // if the team won
+    if (totalR > info.runs) {
+      let newRecord = record.w + 1;
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('record')
+        .doc('record')
+        .update({
+          w: newRecord,
+        });
+      let newPRecord = precord.w + 1;
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('pitcherStats')
+        .doc(pitcher.id)
+        .update({
+          w: newPRecord,
+        });
+      if (closingPitcher !== 'none') {
+        let newCPRecord = cprecord.s + 1;
+        firebase.db
+          .collection('seasons')
+          .doc(`${season}`)
+          .collection('pitcherStats')
+          .doc(closingPitcher.id)
+          .update({
+            s: newCPRecord,
+          });
+      }
+    } else {
+      let newRecord = record.l + 1;
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('record')
+        .doc('record')
+        .update({
+          l: newRecord,
+        });
+      let newPRecord = precord.l + 1;
+      firebase.db
+        .collection('seasons')
+        .doc(`${season}`)
+        .collection('pitcherStats')
+        .doc(pitcher.id)
+        .update({
+          l: newPRecord,
+        });
+    }
+
     document.getElementById('VsTeamForm').reset();
     // Redirect to games page
     history.push('/games');
@@ -228,15 +327,21 @@ const NewGame = () => {
             stateRef={playerGameInfoStateRef}
             totalRunsStateRef={totalRunsStateRef}
             totalHitsStateRef={totalHitsStateRef}
+            setClosingPitcher={setClosingPitcher}
+            pitcher={pitcher}
+            setPitcher={setPitcher}
+            closingPitcher={closingPitcher}
           />
-          <Button
-            type="submit"
-            onClick={Submit}
-            bgColor="true"
-            className="button"
-          >
-            Done
-          </Button>
+          {closingPitcher ? (
+            <Button
+              type="submit"
+              onClick={Submit}
+              bgColor="true"
+              className="button"
+            >
+              Done
+            </Button>
+          ) : null}
         </Form>
       ) : (
         <div>YOur not allowed</div>

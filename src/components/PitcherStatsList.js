@@ -4,17 +4,17 @@ import styled from '@emotion/styled';
 const Number = styled.span`
   color: #ffe600;
 `;
-const StatsList = ({ player, index, select }) => {
+const PitcherStatsList = ({ pitcher, index, select }) => {
   return (
     <li>
       <span>{index + 1}-</span>
-      {player.name}
+      {pitcher.name}
       <Number className="quantity">
-        {select !== 'avg' ? player[select] : player[select].toFixed(3)}
+        {select !== 'w' ? pitcher[select] : pitcher[select]}
       </Number>{' '}
       {/*only fix to 3 positions the avg*/}
     </li>
   );
 };
 
-export default StatsList;
+export default PitcherStatsList;

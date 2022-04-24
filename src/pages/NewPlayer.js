@@ -96,6 +96,7 @@ const NewPlayer = () => {
             so: 0,
           });
       });
+
     history.push('/roster');
   };
 
